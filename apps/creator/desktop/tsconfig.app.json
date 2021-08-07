@@ -5,5 +5,8 @@
     "types": []
   },
   "files": ["src/main.ts", "src/polyfills.ts"],
-  "include": ["src/**/*.d.ts"]
+  "include": [
+    "src/**/*.d.ts",
+    "../../../libs/creator/feature-recorder/src/index.ts"
+  ]
 }

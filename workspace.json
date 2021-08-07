@@ -5,7 +5,7 @@
       "projectType": "application",
       "root": "apps/creator/desktop",
       "sourceRoot": "apps/creator/desktop/src",
-      "prefix": "devparana",
+      "prefix": "devpr",
       "targets": {
         "build": {
           "executor": "@angular-devkit/build-angular:browser",
@@ -116,6 +116,72 @@
           "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["apps/creator/desktop-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    },
+    "creator-feature-recorder": {
+      "projectType": "library",
+      "root": "libs/creator/feature-recorder",
+      "sourceRoot": "libs/creator/feature-recorder/src",
+      "prefix": "devpr",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/creator/feature-recorder"],
+          "options": {
+            "jestConfig": "libs/creator/feature-recorder/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/creator/feature-recorder/src/**/*.ts",
+              "libs/creator/feature-recorder/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "creator-ui-shared": {
+      "projectType": "library",
+      "root": "libs/creator/ui-shared",
+      "sourceRoot": "libs/creator/ui-shared/src",
+      "prefix": "devpr",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/angular:ng-packagr-lite",
+          "outputs": ["dist/libs/creator/ui-shared"],
+          "options": {
+            "project": "libs/creator/ui-shared/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/creator/ui-shared/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "libs/creator/ui-shared/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/creator/ui-shared"],
+          "options": {
+            "jestConfig": "libs/creator/ui-shared/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/creator/ui-shared/src/**/*.ts",
+              "libs/creator/ui-shared/src/**/*.html"
+            ]
           }
         }
       }

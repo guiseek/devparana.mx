@@ -1,0 +1,43 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  > section {
+    display: flex;
+    flex-flow: row wrap;
+    // flex-wrap: wrap;
+    // flex-direction: row;
+    justify-content: space-between;
+    gap: 12px;
+
+    .mat-card {
+      margin: 6px;
+      flex: 1;
+    }
+  }
+}
+
+// .grid-container {
+
+// }
+
+// .dashboard-card {
+//   position: absolute;
+//   top: 15px;
+//   left: 15px;
+//   right: 15px;
+//   bottom: 15px;
+
+//   overflow: hidden;
+// }
+
+// .more-button {
+//   position: absolute;
+//   top: 5px;
+//   right: 10px;
+// }
+
+// .dashboard-card-content {
+//   text-align: center;
+//   object-fit: cover;
+// }

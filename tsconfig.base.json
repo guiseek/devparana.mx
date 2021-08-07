@@ -14,7 +14,12 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@devparana/creator/feature-recorder": [
+        "libs/creator/feature-recorder/src/index.ts"
+      ],
+      "@devparana/creator/ui-shared": ["libs/creator/ui-shared/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

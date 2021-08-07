@@ -33,6 +33,12 @@
     "creator-desktop-e2e": {
       "tags": [],
       "implicitDependencies": ["creator-desktop"]
+    },
+    "creator-feature-recorder": {
+      "tags": ["type:feature"]
+    },
+    "creator-ui-shared": {
+      "tags": ["type:ui"]
     }
   }
 }
