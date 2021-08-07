@@ -1,7 +1,7 @@
 {
   "npmScope": "devparana",
   "affected": {
-    "defaultBase": "master"
+    "defaultBase": "main"
   },
   "implicitDependencies": {
     "package.json": {
@@ -14,12 +14,7 @@
     "default": {
       "runner": "@nrwl/workspace/tasks-runners/default",
       "options": {
-        "cacheableOperations": [
-          "build",
-          "lint",
-          "test",
-          "e2e"
-        ]
+        "cacheableOperations": ["build", "lint", "test", "e2e"]
       }
     }
   },
@@ -31,5 +26,13 @@
       }
     ]
   },
-  "projects": {}
+  "projects": {
+    "creator-desktop": {
+      "tags": ["type:app"]
+    },
+    "creator-desktop-e2e": {
+      "tags": [],
+      "implicitDependencies": ["creator-desktop"]
+    }
+  }
 }
