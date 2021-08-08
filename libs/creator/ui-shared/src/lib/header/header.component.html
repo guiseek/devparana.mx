@@ -1,7 +1,11 @@
 <mat-toolbar color="primary">
-  <span>{{ title }}</span>
+  <span class="toggle-button">
+    <ng-content select="button"></ng-content>
+  </span>
+
+  <span class="brand-name">{{ title }}</span>
 
   <span class="spacer"></span>
 
-  <ng-content select="button"></ng-content>
+  <ng-content></ng-content>
 </mat-toolbar>

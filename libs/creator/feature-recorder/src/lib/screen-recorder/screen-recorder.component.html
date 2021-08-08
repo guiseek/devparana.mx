@@ -1,0 +1,33 @@
+<section>
+  <div class="container">
+    <video #recorder playsinline autoplay></video>
+    <video #recorded playsinline loop style.display="none"></video>
+  </div>
+</section>
+
+<footer class="toolbar">
+  <button
+    mat-fab
+    matTooltip="Capturar"
+    [disabled]="active$ | async"
+    (click)="capture()"
+  >
+    <mat-icon>screen_share</mat-icon>
+  </button>
+
+  <button [disabled]="!(active$ | async)" mat-fab matTooltip="Iniciar gravação">
+    <mat-icon>
+      {{ (active$ | async) ? 'play_circle_filled' : 'pause_circle_filled' }}
+    </mat-icon>
+  </button>
+
+  <button
+    mat-fab
+    matTooltip="Download"
+    [disabled]="(active$ | async) === false || recordedBlobs.length === 0"
+  >
+    <mat-icon>download</mat-icon>
+  </button>
+</footer>
+<!-- <mat-toolbar color="primary">
+</mat-toolbar> -->

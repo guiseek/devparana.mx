@@ -1,43 +1,28 @@
+@use 'libs/theming/mixins/media' as mixin;
+
 :host {
   display: flex;
   flex-direction: column;
   padding: 20px;
   > section {
-    display: flex;
-    flex-flow: row wrap;
-    // flex-wrap: wrap;
-    // flex-direction: row;
-    justify-content: space-between;
     gap: 12px;
+    display: flex;
+    flex-direction: row;
+
+    @include mixin.media(mobile) {
+      flex-direction: column;
+    }
+
+    justify-content: space-between;
 
     .mat-card {
+      flex-basis: 100%;
+      flex-grow: 2;
       margin: 6px;
-      flex: 1;
+    }
+    .mat-card-header .mat-card-title {
+      margin-bottom: 12px;
+      margin-top: 6px;
     }
   }
 }
-
-// .grid-container {
-
-// }
-
-// .dashboard-card {
-//   position: absolute;
-//   top: 15px;
-//   left: 15px;
-//   right: 15px;
-//   bottom: 15px;
-
-//   overflow: hidden;
-// }
-
-// .more-button {
-//   position: absolute;
-//   top: 5px;
-//   right: 10px;
-// }
-
-// .dashboard-card-content {
-//   text-align: center;
-//   object-fit: cover;
-// }

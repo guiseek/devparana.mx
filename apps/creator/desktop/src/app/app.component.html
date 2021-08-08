@@ -3,12 +3,11 @@
 
     <button
       type="button"
-      aria-label="Toggle sidenav"
+      aria-label="Abre / Fecha navegação"
       mat-icon-button
       (click)="nav.drawer.toggle()"
-      *ngIf="nav.isHandset$ | async"
     >
-      <mat-icon aria-label="Abre / Fecha menu de navegação">menu</mat-icon>
+      <mat-icon aria-label="Ícone de menu">menu</mat-icon>
     </button>
   </devpr-header>
 

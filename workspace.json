@@ -145,6 +145,31 @@
         }
       }
     },
+    "creator-feature-shell": {
+      "projectType": "library",
+      "root": "libs/creator/feature-shell",
+      "sourceRoot": "libs/creator/feature-shell/src",
+      "prefix": "devpr",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/creator/feature-shell"],
+          "options": {
+            "jestConfig": "libs/creator/feature-shell/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/creator/feature-shell/src/**/*.ts",
+              "libs/creator/feature-shell/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
     "creator-ui-shared": {
       "projectType": "library",
       "root": "libs/creator/ui-shared",

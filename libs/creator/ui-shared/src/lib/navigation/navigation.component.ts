@@ -1,16 +1,18 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
+import { Component, ViewChild } from '@angular/core';
 import { map, shareReplay } from 'rxjs/operators';
+import { Navigation } from './navigation';
 import { Observable } from 'rxjs';
 
 @Component({
   exportAs: 'navigation',
   selector: 'devpr-navigation',
   templateUrl: './navigation.component.html',
-  styleUrls: ['./navigation.component.scss']
+  styleUrls: ['./navigation.component.scss'],
+  providers: [Navigation]
 })
-export class NavigationComponent implements AfterViewInit {
+export class NavigationComponent {
   @ViewChild(MatSidenav)
   drawer!: MatSidenav
 
@@ -20,9 +22,8 @@ export class NavigationComponent implements AfterViewInit {
       shareReplay()
     );
 
-  constructor(private breakpointObserver: BreakpointObserver) {}
-
-  ngAfterViewInit(): void {
-    console.log('View', this.drawer);
-  }
+  constructor(
+    private breakpointObserver: BreakpointObserver,
+    readonly navigation: Navigation
+  ) {}
 }
