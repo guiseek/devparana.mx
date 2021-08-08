@@ -1,6 +1,15 @@
-import { Component, ElementRef, AfterViewInit, ViewChild, OnDestroy } from '@angular/core'
-import { BehaviorSubject } from 'rxjs'
+import { Transcoder } from '@devparana/creator/util-recorder'
+import { Subject, interval, BehaviorSubject } from 'rxjs'
+import { finalize, map, take } from 'rxjs/operators'
+import { MatDialog } from '@angular/material/dialog'
 import './../../index.d'
+import {
+  Component,
+  ElementRef,
+  AfterViewInit,
+  ViewChild,
+  OnDestroy,
+} from '@angular/core'
 
 @Component({
   selector: 'devpr-screen-recorder',
@@ -22,12 +31,18 @@ export class ScreenRecorderComponent implements AfterViewInit, OnDestroy {
   private _completed = new BehaviorSubject<boolean>(false)
   public completed$ = this._completed.asObservable()
 
+  private _countdown = new Subject<number>()
+  public countdown$ = this._countdown.asObservable()
+
   mimeType: string | undefined
   mediaStream: MediaStream | undefined
   mediaRecorder: MediaRecorder | undefined
   recordedBlobs: Blob[] = []
 
-  constructor() {}
+  constructor(
+    readonly transcoder: Transcoder,
+    private _dialog: MatDialog
+  ) { }
 
   ngAfterViewInit(): void {
     this.recorderEl = this.recorderRef.nativeElement
@@ -52,47 +67,61 @@ export class ScreenRecorderComponent implements AfterViewInit, OnDestroy {
     })
   }
 
+  start() {
+    interval(1000)
+      .pipe(
+        take(5),
+        map((v) => 5 - v),
+        finalize(() => this.record())
+      )
+      .subscribe((v) => this._countdown.next(v))
+  }
+
+  stop() {
+    if (this.mediaRecorder) {
+      this.mediaRecorder.stop()
+      this._completed.next(true)
+    }
+  }
+
   record() {
     this.recordedBlobs = []
+
     const mimeTypes = [
-      'video/mp4',
       'video/webm;codecs=vp9,opus',
       'video/webm;codecs=vp8,opus',
       'video/webm',
+      'video/mp4',
     ]
 
     this.mimeType = mimeTypes.find((type) => {
       return MediaRecorder.isTypeSupported(type)
     })
 
-    console.log(this.mimeType)
+    if (!this.mimeType) {
+      console.error('MediaRecorder support')
+    }
 
-    if (this.recorderEl.srcObject instanceof MediaStream) {
-      this.mediaRecorder = new MediaRecorder(this.recorderEl.srcObject, {
+    if (this.mediaStream) {
+      this.mediaRecorder = new MediaRecorder(this.mediaStream, {
         mimeType: this.mimeType,
       })
-
-      this.mediaRecorder.ondataavailable = ({ data }) => {
-        if (data && data.size > 0) {
-          this.recordedBlobs.push(data)
-        }
+      this.mediaRecorder.ondataavailable = ({ data }: BlobEvent) => {
+        if (data && data.size > 0) this.recordedBlobs.push(data)
       }
 
       this.mediaRecorder.start()
 
       this.mediaRecorder.onstop = () => {
-        this.recorderEl.pause()
-        if (this.mediaStream) {
-          this.mediaStream?.getTracks().forEach(track => {
-            track.stop()
-          })
-        }
-
+        this.mediaStream?.getTracks().forEach(track => track.stop())
+        const blob = new Blob(this.recordedBlobs, { type: this.mimeType })
+        this.recordedEl.src = URL.createObjectURL(blob)
+        this.recordedEl.controls = true
+        this.recordedEl.play()
+        // this._dialog.open(DownloadComponent, { data })
       }
     }
   }
 
-  ngOnDestroy(): void {
-
-  }
+  ngOnDestroy(): void { }
 }

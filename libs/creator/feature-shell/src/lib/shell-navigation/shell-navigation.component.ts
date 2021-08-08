@@ -13,5 +13,6 @@ export class ShellNavigationComponent {
     this.navigation.addLink({ path: '/recorder', label: 'Opções de gravação' })
     this.navigation.addLink({ path: '/recorder/webcam', label: 'Usar minha webcam' })
     this.navigation.addLink({ path: '/recorder/screen', label: 'Gravação de tela' })
+    this.navigation.addLink({ path: '/recorder/video', label: 'Converter vídeos' })
   }
 }

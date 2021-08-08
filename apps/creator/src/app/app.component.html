@@ -1,0 +1,14 @@
+<devpr-navigation #nav="navigation">
+  <devpr-header [title]="title">
+    <button
+      type="button"
+      aria-label="Abre / Fecha navegação"
+      mat-icon-button
+      (click)="nav.drawer.toggle()"
+    >
+      <mat-icon aria-label="Ícone de menu">menu</mat-icon>
+    </button>
+  </devpr-header>
+
+  <router-outlet></router-outlet>
+</devpr-navigation>

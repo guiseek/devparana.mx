@@ -27,12 +27,8 @@
     ]
   },
   "projects": {
-    "creator-desktop": {
+    "creator": {
       "tags": ["type:app"]
-    },
-    "creator-desktop-e2e": {
-      "tags": [],
-      "implicitDependencies": ["creator-desktop"]
     },
     "creator-feature-recorder": {
       "tags": ["type:feature"]
@@ -42,6 +38,9 @@
     },
     "creator-ui-shared": {
       "tags": ["type:ui"]
+    },
+    "creator-util-recorder": {
+      "tags": ["type:util", "scope:creator"]
     }
   }
 }

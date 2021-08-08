@@ -1,28 +1,30 @@
 {
   "version": 2,
   "projects": {
-    "creator-desktop": {
+    "creator": {
       "projectType": "application",
-      "root": "apps/creator/desktop",
-      "sourceRoot": "apps/creator/desktop/src",
+      "root": "apps/creator",
+      "sourceRoot": "apps/creator/src",
       "prefix": "devpr",
       "targets": {
         "build": {
           "executor": "@angular-devkit/build-angular:browser",
           "outputs": ["{options.outputPath}"],
           "options": {
-            "outputPath": "dist/apps/creator/desktop",
-            "index": "apps/creator/desktop/src/index.html",
-            "main": "apps/creator/desktop/src/main.ts",
-            "polyfills": "apps/creator/desktop/src/polyfills.ts",
-            "tsConfig": "apps/creator/desktop/tsconfig.app.json",
+            "outputPath": "dist/apps/creator",
+            "index": "apps/creator/src/index.html",
+            "main": "apps/creator/src/main.ts",
+            "polyfills": "apps/creator/src/polyfills.ts",
+            "tsConfig": "apps/creator/tsconfig.app.json",
+            "allowedCommonJsDependencies": ["@ffmpeg/ffmpeg"],
             "inlineStyleLanguage": "scss",
             "assets": [
-              "apps/creator/desktop/src/favicon.ico",
-              "apps/creator/desktop/src/assets"
+              "apps/creator/src/favicon.ico",
+              "apps/creator/src/assets"
             ],
-            "styles": ["apps/creator/desktop/src/styles.scss"],
-            "scripts": []
+            "styles": ["apps/creator/src/styles.scss"],
+            "scripts": [],
+            "webWorkerTsConfig": "apps/creator/tsconfig.worker.json"
           },
           "configurations": {
             "production": {
@@ -40,8 +42,8 @@
               ],
               "fileReplacements": [
                 {
-                  "replace": "apps/creator/desktop/src/environments/environment.ts",
-                  "with": "apps/creator/desktop/src/environments/environment.prod.ts"
+                  "replace": "apps/creator/src/environments/environment.ts",
+                  "with": "apps/creator/src/environments/environment.prod.ts"
                 }
               ],
               "outputHashing": "all"
@@ -61,10 +63,10 @@
           "executor": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "creator-desktop:build:production"
+              "browserTarget": "creator:build:production"
             },
             "development": {
-              "browserTarget": "creator-desktop:build:development"
+              "browserTarget": "creator:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -72,50 +74,25 @@
         "extract-i18n": {
           "executor": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "creator-desktop:build"
+            "browserTarget": "creator:build"
           }
         },
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
-              "apps/creator/desktop/src/**/*.ts",
-              "apps/creator/desktop/src/**/*.html"
+              "apps/creator/src/**/*.ts",
+              "apps/creator/src/**/*.html"
             ]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/creator/desktop"],
+          "outputs": ["coverage/apps/creator"],
           "options": {
-            "jestConfig": "apps/creator/desktop/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
-    "creator-desktop-e2e": {
-      "root": "apps/creator/desktop-e2e",
-      "sourceRoot": "apps/creator/desktop-e2e/src",
-      "projectType": "application",
-      "targets": {
-        "e2e": {
-          "executor": "@nrwl/cypress:cypress",
-          "options": {
-            "cypressConfig": "apps/creator/desktop-e2e/cypress.json",
-            "tsConfig": "apps/creator/desktop-e2e/tsconfig.e2e.json",
-            "devServerTarget": "creator-desktop:serve:development"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "creator-desktop:serve:production"
-            }
-          }
-        },
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["apps/creator/desktop-e2e/**/*.{js,ts}"]
+            "jestConfig": "apps/creator/jest.config.js",
+            "passWithNoTests": true,
+            "webWorkerTsConfig": "apps/creator/tsconfig.worker.json"
           }
         }
       }
@@ -210,6 +187,37 @@
           }
         }
       }
+    },
+    "creator-util-recorder": {
+      "root": "libs/creator/util-recorder",
+      "sourceRoot": "libs/creator/util-recorder/src",
+      "projectType": "library",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/workspace:tsc",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/libs/creator/util-recorder",
+            "main": "libs/creator/util-recorder/src/index.ts",
+            "tsConfig": "libs/creator/util-recorder/tsconfig.lib.json",
+            "assets": ["libs/creator/util-recorder/*.md"]
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/creator/util-recorder/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/creator/util-recorder"],
+          "options": {
+            "jestConfig": "libs/creator/util-recorder/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
   "cli": {
@@ -231,5 +239,5 @@
       "style": "scss"
     }
   },
-  "defaultProject": "creator-desktop"
+  "defaultProject": "creator"
 }
