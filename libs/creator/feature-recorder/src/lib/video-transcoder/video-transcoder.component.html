@@ -1,0 +1,11 @@
+<pre>
+  <div *ngIf="transcoder.log$ | async as log">{{ log | json }}</div>
+</pre>
+
+<section
+  wormhole
+  drop-file
+  (dropped)="onChange($event)"
+  (hovered)="hovered = $event"
+  [class]="{ hovered: hovered }"
+></section>

@@ -1,7 +1,243 @@
 {
   "version": 2,
-  "projects": {},
+  "projects": {
+    "creator": {
+      "projectType": "application",
+      "root": "apps/creator",
+      "sourceRoot": "apps/creator/src",
+      "prefix": "devpr",
+      "targets": {
+        "build": {
+          "executor": "@angular-devkit/build-angular:browser",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/creator",
+            "index": "apps/creator/src/index.html",
+            "main": "apps/creator/src/main.ts",
+            "polyfills": "apps/creator/src/polyfills.ts",
+            "tsConfig": "apps/creator/tsconfig.app.json",
+            "allowedCommonJsDependencies": ["@ffmpeg/ffmpeg"],
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "apps/creator/src/favicon.ico",
+              "apps/creator/src/assets"
+            ],
+            "styles": ["apps/creator/src/styles.scss"],
+            "scripts": [],
+            "webWorkerTsConfig": "apps/creator/tsconfig.worker.json"
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "apps/creator/src/environments/environment.ts",
+                  "with": "apps/creator/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "executor": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "creator:build:production"
+            },
+            "development": {
+              "browserTarget": "creator:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "executor": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "creator:build"
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/creator/src/**/*.ts",
+              "apps/creator/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/creator"],
+          "options": {
+            "jestConfig": "apps/creator/jest.config.js",
+            "passWithNoTests": true,
+            "webWorkerTsConfig": "apps/creator/tsconfig.worker.json"
+          }
+        }
+      }
+    },
+    "creator-feature-recorder": {
+      "projectType": "library",
+      "root": "libs/creator/feature-recorder",
+      "sourceRoot": "libs/creator/feature-recorder/src",
+      "prefix": "devpr",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/creator/feature-recorder"],
+          "options": {
+            "jestConfig": "libs/creator/feature-recorder/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/creator/feature-recorder/src/**/*.ts",
+              "libs/creator/feature-recorder/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "creator-feature-shell": {
+      "projectType": "library",
+      "root": "libs/creator/feature-shell",
+      "sourceRoot": "libs/creator/feature-shell/src",
+      "prefix": "devpr",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/creator/feature-shell"],
+          "options": {
+            "jestConfig": "libs/creator/feature-shell/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/creator/feature-shell/src/**/*.ts",
+              "libs/creator/feature-shell/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "creator-ui-shared": {
+      "projectType": "library",
+      "root": "libs/creator/ui-shared",
+      "sourceRoot": "libs/creator/ui-shared/src",
+      "prefix": "devpr",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/angular:ng-packagr-lite",
+          "outputs": ["dist/libs/creator/ui-shared"],
+          "options": {
+            "project": "libs/creator/ui-shared/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/creator/ui-shared/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "libs/creator/ui-shared/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/creator/ui-shared"],
+          "options": {
+            "jestConfig": "libs/creator/ui-shared/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/creator/ui-shared/src/**/*.ts",
+              "libs/creator/ui-shared/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "creator-util-recorder": {
+      "root": "libs/creator/util-recorder",
+      "sourceRoot": "libs/creator/util-recorder/src",
+      "projectType": "library",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/workspace:tsc",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/libs/creator/util-recorder",
+            "main": "libs/creator/util-recorder/src/index.ts",
+            "tsConfig": "libs/creator/util-recorder/tsconfig.lib.json",
+            "assets": ["libs/creator/util-recorder/*.md"]
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/creator/util-recorder/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/creator/util-recorder"],
+          "options": {
+            "jestConfig": "libs/creator/util-recorder/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    }
+  },
   "cli": {
-    "defaultCollection": "@nrwl/workspace"
-  }
+    "defaultCollection": "@nrwl/angular"
+  },
+  "generators": {
+    "@nrwl/angular:application": {
+      "style": "scss",
+      "linter": "eslint",
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "style": "scss",
+      "linter": "eslint",
+      "unitTestRunner": "jest"
+    },
+    "@nrwl/angular:component": {
+      "style": "scss"
+    }
+  },
+  "defaultProject": "creator"
 }

@@ -1,0 +1,57 @@
+<section>
+  <div class="container">
+    <video
+      #recorder
+      playsinline
+      autoplay
+      [ngClass]="{ hidden: (completed$ | async) }"
+    ></video>
+    <video
+      #recorded
+      playsinline
+      loop
+      [ngClass]="{ hidden: !(completed$ | async) }"
+    ></video>
+  </div>
+</section>
+
+<ng-container *ngIf="countdown$ | async as countdown">
+  <output [ngClass]="{ ping: countdown >= 1 }">{{ countdown }}</output>
+</ng-container>
+
+<footer class="toolbar">
+  <button
+    mat-fab
+    matTooltip="Capturar"
+    [disabled]="active$ | async"
+    (click)="capture()"
+  >
+    <mat-icon>video_camera_front</mat-icon>
+  </button>
+
+  <button
+    [disabled]="(countdown$ | async) == 1"
+    mat-fab
+    matTooltip="Iniciar gravação"
+    (click)="start()"
+  >
+    <mat-icon>play_circle_filled</mat-icon>
+  </button>
+  <button
+    [disabled]="mediaRecorder?.state != 'recording'"
+    mat-fab
+    matTooltip="Parar gravação"
+    (click)="stop()"
+  >
+    <mat-icon>pause_circle_filled</mat-icon>
+  </button>
+
+  <button
+    mat-fab
+    matTooltip="Download"
+    [disabled]="mediaRecorder?.state != 'inactive'"
+    (click)="download()"
+  >
+    <mat-icon>download</mat-icon>
+  </button>
+</footer>

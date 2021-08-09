@@ -1,0 +1,10 @@
+:host {
+  display: block;
+  max-width: 100%;
+
+  .mat-toolbar {
+    .toggle-button {
+      margin-right: 12px;
+    }
+  }
+}

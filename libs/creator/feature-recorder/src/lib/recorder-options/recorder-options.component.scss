@@ -1,0 +1,28 @@
+@use 'libs/theming/mixins/media' as mixin;
+
+:host {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  > section {
+    gap: 12px;
+    display: flex;
+    flex-direction: row;
+
+    @include mixin.media(mobile) {
+      flex-direction: column;
+    }
+
+    justify-content: space-between;
+
+    .mat-card {
+      flex-basis: 100%;
+      flex-grow: 2;
+      margin: 6px;
+    }
+    .mat-card-header .mat-card-title {
+      margin-bottom: 12px;
+      margin-top: 6px;
+    }
+  }
+}
