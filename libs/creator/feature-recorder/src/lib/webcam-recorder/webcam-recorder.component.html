@@ -29,22 +29,40 @@
     <mat-icon>video_camera_front</mat-icon>
   </button>
 
-  <button
-    [disabled]="(countdown$ | async) == 1"
-    mat-fab
-    matTooltip="Iniciar gravação"
-    (click)="start()"
-  >
-    <mat-icon>play_circle_filled</mat-icon>
-  </button>
-  <button
-    [disabled]="mediaRecorder?.state != 'recording'"
-    mat-fab
-    matTooltip="Parar gravação"
-    (click)="stop()"
-  >
-    <mat-icon>pause_circle_filled</mat-icon>
-  </button>
+  <div>
+    <button
+      [disabled]="(countdown$ | async) == 1"
+      mat-mini-fab
+      matTooltip="Iniciar gravação"
+      (click)="start()"
+    >
+      <mat-icon>play_arrow</mat-icon>
+    </button>
+    <button
+      [disabled]="disableToggle"
+      mat-mini-fab
+      [matTooltip]="
+        mediaRecorder?.state == 'paused'
+          ? 'Continuar gravação'
+          : 'Pausar gravação'
+      "
+      (click)="toggleRecording()"
+    >
+      <mat-icon>
+        {{
+          mediaRecorder?.state == 'paused' ? 'not_started' : 'pause'
+        }}</mat-icon
+      >
+    </button>
+    <button
+      [disabled]="mediaRecorder?.state != 'recording'"
+      mat-mini-fab
+      matTooltip="Parar gravação"
+      (click)="stop()"
+    >
+      <mat-icon>stop</mat-icon>
+    </button>
+  </div>
 
   <button
     mat-fab

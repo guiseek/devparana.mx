@@ -52,6 +52,19 @@ export abstract class RecorderBase {
       .subscribe((v) => this._countdown.next(v))
   }
 
+  get disableToggle() {
+    const state = this.mediaRecorder?.state ?? ''
+    return !state || state === 'inactive'
+  }
+
+  toggleRecording() {
+    if (this.mediaRecorder.state == 'paused') {
+      this.mediaRecorder.resume()
+    } else {
+      this.mediaRecorder.pause()
+    }
+  }
+
   stop() {
     if (this.mediaRecorder) {
       this.mediaRecorder.stop()
