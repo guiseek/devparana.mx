@@ -48,7 +48,10 @@ import { NgModule } from '@angular/core'
 })
 export class CreatorUiSharedModule {}
 
-export { HeaderComponent } from './header/header.component'
-export { DownloadComponent } from './download/download.component'
+export { DropFileDirective } from './directives/drop-file.directive'
+export { InputFileDirective } from './directives/input-file.directive'
 export { NavigationComponent } from './navigation/navigation.component'
+export { DownloadComponent } from './download/download.component'
+export { WormholeComponent } from './wormhole/wormhole.component'
+export { HeaderComponent } from './header/header.component'
 export { Navigation } from './navigation/navigation'
