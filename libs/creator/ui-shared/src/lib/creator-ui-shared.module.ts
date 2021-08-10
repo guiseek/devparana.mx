@@ -14,7 +14,8 @@ import { MatListModule } from '@angular/material/list'
 import { LayoutModule } from '@angular/cdk/layout'
 import { CommonModule } from '@angular/common'
 import { RouterModule } from '@angular/router'
-import { NgModule } from '@angular/core'
+import { NgModule } from '@angular/core';
+import { PlayPauseComponent } from './play-pause/play-pause.component'
 
 @NgModule({
   imports: [
@@ -36,6 +37,7 @@ import { NgModule } from '@angular/core'
     DropFileDirective,
     WormholeComponent,
     DownloadComponent,
+    PlayPauseComponent,
   ],
   exports: [
     HeaderComponent,
@@ -44,6 +46,7 @@ import { NgModule } from '@angular/core'
     DropFileDirective,
     WormholeComponent,
     DownloadComponent,
+    PlayPauseComponent,
   ],
 })
 export class CreatorUiSharedModule {}

@@ -1,6 +1,7 @@
 :host {
-  display: block;
-  height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 
   .sidenav-container {
     height: 100%;
@@ -11,14 +12,21 @@
   }
 
   .sidenav-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
     > header {
       position: fixed;
       height: 64px;
       width: 100%;
+      z-index: 1;
     }
     > main {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
       margin-top: 64px;
-      height: calc(100% - 64px);
+      // height: calc(100% - 64px);
     }
   }
 

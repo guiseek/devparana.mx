@@ -1,4 +1,4 @@
-import { Component, ElementRef, AfterViewInit, ViewChild } from '@angular/core'
+import { Component, ElementRef, AfterViewInit, ViewChild, OnDestroy } from '@angular/core'
 import { RecorderBase } from '../base/recorder-base'
 import { MatDialog } from '@angular/material/dialog'
 
@@ -8,16 +8,25 @@ import { MatDialog } from '@angular/material/dialog'
 })
 export class ScreenRecorderComponent
   extends RecorderBase
-  implements AfterViewInit
+  implements AfterViewInit, OnDestroy
 {
-  recorder!: MediaRecorder
+  recorder?: MediaRecorder
   stream!: MediaStream
-
-  mimeType: string | undefined
+  mimeType!: string
 
   constraints = {
     audio: true,
-    video: true,
+    video: {
+      width: {
+        ideal: 1920,
+        max: 3840,
+      },
+      height: {
+        ideal: 1080,
+        max: 2160,
+      },
+      framerate: 60,
+    },
   }
 
   @ViewChild('recorderRef')
@@ -43,11 +52,16 @@ export class ScreenRecorderComponent
     this.recorderEl.onplay = () => {
       this._active.next(true)
     }
+
     this.recorderEl.onpause = () => {
       this._active.next(false)
       const active = this._active.value
       const len = this.recordedBlobs.length
       this._completed.next(!active || len === 0)
     }
+  }
+
+  ngOnDestroy(): void {
+    super.destroy()
   }
 }

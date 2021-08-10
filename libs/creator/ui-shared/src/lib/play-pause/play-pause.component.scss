@@ -1,0 +1,25 @@
+:host {
+  label {
+    display: block;
+    box-sizing: border-box;
+    width: 0;
+    height: 24px;
+
+    border-color: transparent transparent transparent #202020;
+    transition: 100ms all ease;
+    cursor: pointer;
+    border-style: double;
+    border-width: 0px 0 0px 20px;
+  }
+  input[type='checkbox'] {
+    position: absolute;
+    left: -9999px;
+    &:checked + label {
+      border-style: solid;
+      border-width: 12px 0 12px 20px;
+    }
+    &:focus + label {
+      box-shadow: 0 0 2px lightblue;
+    }
+  }
+}
