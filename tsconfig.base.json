@@ -24,6 +24,9 @@
       "@devparana/creator/ui-shared": ["libs/creator/ui-shared/src/index.ts"],
       "@devparana/creator/util-recorder": [
         "libs/creator/util-recorder/src/index.ts"
+      ],
+      "@devparana/creator/util-typings": [
+        "libs/creator/util-typings/src/index.ts"
       ]
     }
   },

@@ -1,22 +1,24 @@
 <section>
   <div class="container">
     <video
-      #recorder
+      #recorderRef
       playsinline
       autoplay
       [ngClass]="{ hidden: (completed$ | async) }"
     ></video>
     <video
-      #recorded
+      #recordedRef
       playsinline
-      loop
+      controls
       [ngClass]="{ hidden: !(completed$ | async) }"
     ></video>
   </div>
 </section>
 
 <ng-container *ngIf="countdown$ | async as countdown">
-  <output [ngClass]="{ ping: countdown >= 1 }">{{ countdown }}</output>
+  <div class="countdown">
+    <span [ngClass]="{ ping: countdown >= 0 }">{{ countdown }}</span>
+  </div>
 </ng-container>
 
 <footer class="toolbar">
@@ -42,20 +44,16 @@
       [disabled]="disableToggle"
       mat-mini-fab
       [matTooltip]="
-        mediaRecorder?.state == 'paused'
-          ? 'Continuar gravação'
-          : 'Pausar gravação'
+        recorder?.state == 'paused' ? 'Continuar gravação' : 'Pausar gravação'
       "
       (click)="toggleRecording()"
     >
       <mat-icon>
-        {{
-          mediaRecorder?.state == 'paused' ? 'not_started' : 'pause'
-        }}</mat-icon
-      >
+        {{ recorder?.state == 'paused' ? 'not_started' : 'pause' }}
+      </mat-icon>
     </button>
     <button
-      [disabled]="mediaRecorder?.state != 'recording'"
+      [disabled]="recorder?.state != 'recording'"
       mat-mini-fab
       matTooltip="Parar gravação"
       (click)="stop()"
@@ -67,7 +65,7 @@
   <button
     mat-fab
     matTooltip="Download"
-    [disabled]="mediaRecorder?.state != 'inactive'"
+    [disabled]="recorder?.state != 'inactive'"
     (click)="download()"
   >
     <mat-icon>download</mat-icon>

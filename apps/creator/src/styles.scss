@@ -2,21 +2,8 @@
 @use '~@angular/material' as mat;
 @use './theming/palette' as devpr;
 
-@include mat.core();
-
-$my-primary: mat.define-palette(devpr.$green-palette);
-$my-accent: mat.define-palette(devpr.$light-green-palette, A200, A100, A400);
-
-$my-theme: mat.define-dark-theme(
-  (
-    color: (
-      primary: $my-primary,
-      accent: $my-accent,
-    ),
-  )
-);
-
-@include mat.all-component-themes($my-theme);
+@import './theming/app';
+@import './theming/custom';
 
 html,
 body {

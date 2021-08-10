@@ -1,31 +1,32 @@
-import { Component, ElementRef, AfterViewInit, ViewChild } from '@angular/core';
-import { MimeType, RecorderBase } from '../base/recorder-base';
-import { MatDialog } from '@angular/material/dialog';
-
+import { Component, ElementRef, AfterViewInit, ViewChild } from '@angular/core'
+import { RecorderBase } from '../base/recorder-base'
+import { MatDialog } from '@angular/material/dialog'
 
 @Component({
   templateUrl: './screen-recorder.component.html',
   styleUrls: ['./screen-recorder.component.scss'],
 })
-export class ScreenRecorderComponent extends RecorderBase implements AfterViewInit {
-  mediaRecorder!: MediaRecorder;
-  mediaStream!: MediaStream;
+export class ScreenRecorderComponent
+  extends RecorderBase
+  implements AfterViewInit
+{
+  recorder!: MediaRecorder
+  stream!: MediaStream
 
-  mimeType: MimeType | undefined;
+  mimeType: string | undefined
 
   constraints = {
     audio: true,
-    video: true
-  };
+    video: true,
+  }
 
-  @ViewChild('recorder')
+  @ViewChild('recorderRef')
   recorderRef!: ElementRef<HTMLVideoElement>
   recorderEl!: HTMLVideoElement
 
-  @ViewChild('recorded')
+  @ViewChild('recordedRef')
   recordedRef!: ElementRef<HTMLVideoElement>
   recordedEl!: HTMLVideoElement
-
 
   constructor(readonly dialog: MatDialog) {
     super(dialog)

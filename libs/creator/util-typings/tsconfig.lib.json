@@ -4,7 +4,6 @@
     "outDir": "../../../dist/out-tsc",
     "declaration": true,
     "types": [],
-    "typeRoots": ["../../../types"],
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "noImplicitReturns": true,

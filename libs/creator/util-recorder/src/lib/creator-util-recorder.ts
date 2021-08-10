@@ -1,7 +1,7 @@
 import { createFFmpeg, fetchFile } from '@ffmpeg/ffmpeg'
 import { Subject } from 'rxjs'
 
-const _logger = new Subject<{ type: string; message: string; }>()
+const _logger = new Subject<{ type: string; message: string }>()
 const _progress = new Subject<{ ratio: number }>()
 
 export async function createTranscoder(file: File) {

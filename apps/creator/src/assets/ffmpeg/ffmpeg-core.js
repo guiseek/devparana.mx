@@ -3714,9 +3714,10 @@ var createFFmpegCore = (function () {
         Yc(b)
         b.uf = b.getExtension('EXT_disjoint_timer_query')
         b.rj = b.getExtension('WEBGL_multi_draw')
-        var c = 'OES_texture_float OES_texture_half_float OES_standard_derivatives OES_vertex_array_object WEBGL_compressed_texture_s3tc WEBGL_depth_texture OES_element_index_uint EXT_texture_filter_anisotropic EXT_frag_depth WEBGL_draw_buffers ANGLE_instanced_arrays OES_texture_float_linear OES_texture_half_float_linear EXT_blend_minmax EXT_shader_texture_lod EXT_texture_norm16 WEBGL_compressed_texture_pvrtc EXT_color_buffer_half_float WEBGL_color_buffer_float EXT_sRGB WEBGL_compressed_texture_etc1 EXT_disjoint_timer_query WEBGL_compressed_texture_etc WEBGL_compressed_texture_astc EXT_color_buffer_float WEBGL_compressed_texture_s3tc_srgb EXT_disjoint_timer_query_webgl2 WEBKIT_WEBGL_compressed_texture_pvrtc'.split(
-          ' '
-        )
+        var c =
+          'OES_texture_float OES_texture_half_float OES_standard_derivatives OES_vertex_array_object WEBGL_compressed_texture_s3tc WEBGL_depth_texture OES_element_index_uint EXT_texture_filter_anisotropic EXT_frag_depth WEBGL_draw_buffers ANGLE_instanced_arrays OES_texture_float_linear OES_texture_half_float_linear EXT_blend_minmax EXT_shader_texture_lod EXT_texture_norm16 WEBGL_compressed_texture_pvrtc EXT_color_buffer_half_float WEBGL_color_buffer_float EXT_sRGB WEBGL_compressed_texture_etc1 EXT_disjoint_timer_query WEBGL_compressed_texture_etc WEBGL_compressed_texture_astc EXT_color_buffer_float WEBGL_compressed_texture_s3tc_srgb EXT_disjoint_timer_query_webgl2 WEBKIT_WEBGL_compressed_texture_pvrtc'.split(
+            ' '
+          )
         ;(b.getSupportedExtensions() || []).forEach(function (d) {
           ;-1 != c.indexOf(d) && b.getExtension(d)
         })
@@ -5858,12 +5859,14 @@ var createFFmpegCore = (function () {
           '%Oy': '%y',
         }
         for (var t in q) c = c.replace(new RegExp(t, 'g'), q[t])
-        var w = 'Sunday Monday Tuesday Wednesday Thursday Friday Saturday'.split(
-            ' '
-          ),
-          B = 'January February March April May June July August September October November December'.split(
-            ' '
-          )
+        var w =
+            'Sunday Monday Tuesday Wednesday Thursday Friday Saturday'.split(
+              ' '
+            ),
+          B =
+            'January February March April May June July August September October November December'.split(
+              ' '
+            )
         q = {
           '%a': function (p) {
             return w[p.Fg].substring(0, 3)

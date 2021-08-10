@@ -1,7 +1,7 @@
-import { Navigation } from './navigation';
+import { Navigation } from './navigation'
 
 describe('Navigation', () => {
   it('should create an instance', () => {
-    expect(new Navigation()).toBeTruthy();
-  });
-});
+    expect(new Navigation()).toBeTruthy()
+  })
+})

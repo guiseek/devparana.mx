@@ -16,7 +16,7 @@ import { NgModule } from '@angular/core'
           {
             path: '',
             redirectTo: 'recorder',
-            pathMatch: 'full'
+            pathMatch: 'full',
           },
           {
             path: 'recorder',
@@ -25,8 +25,8 @@ import { NgModule } from '@angular/core'
                 (m) => m.CreatorFeatureRecorderModule
               ),
           },
-        ]
-      }
+        ],
+      },
     ]),
   ],
   declarations: [ShellNavigationComponent],

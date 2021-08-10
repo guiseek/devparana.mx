@@ -22,7 +22,7 @@ export class DropFileDirective {
 
   @HostListener('dragover', ['$event'])
   onDragOver(evt: DragEvent) {
-    console.log(evt);
+    console.log(evt)
     evt.preventDefault()
     this.hovered.emit(true)
   }

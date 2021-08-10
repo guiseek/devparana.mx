@@ -218,6 +218,37 @@
           }
         }
       }
+    },
+    "creator-util-typings": {
+      "root": "libs/creator/util-typings",
+      "sourceRoot": "libs/creator/util-typings/src",
+      "projectType": "library",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/workspace:tsc",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/libs/creator/util-typings",
+            "main": "libs/creator/util-typings/src/index.ts",
+            "tsConfig": "libs/creator/util-typings/tsconfig.lib.json",
+            "assets": ["libs/creator/util-typings/*.md"]
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/creator/util-typings/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/creator/util-typings"],
+          "options": {
+            "jestConfig": "libs/creator/util-typings/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
   "cli": {
