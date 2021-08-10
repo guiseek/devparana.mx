@@ -8,3 +8,22 @@
     }
   }
 }
+
+::ng-deep .mat-toolbar {
+  .mat-button {
+    opacity: 0.8;
+    transition: opacity 250ms ease-in-out;
+    .mat-icon {
+      opacity: 0.4;
+      padding-right: 8px;
+      transition: opacity 250ms ease-in-out;
+    }
+    &:hover {
+      opacity: 1;
+
+      .mat-icon {
+        opacity: 0.8;
+      }
+    }
+  }
+}

@@ -10,7 +10,6 @@ import { Observable } from 'rxjs'
   selector: 'devpr-navigation',
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.scss'],
-  providers: [Navigation],
 })
 export class NavigationComponent {
   @ViewChild(MatSidenav)

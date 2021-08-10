@@ -33,7 +33,7 @@
 
   <div>
     <button
-      [disabled]="(countdown$ | async) == 1"
+      [disabled]="(countdown$ | async) == 0"
       mat-mini-fab
       matTooltip="Iniciar gravação"
       (click)="start()"

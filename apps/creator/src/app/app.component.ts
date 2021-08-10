@@ -1,12 +1,19 @@
 import { Component } from '@angular/core'
+import { Navigation } from '@devparana/creator/ui-shared'
 
 @Component({
   selector: 'devparana-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
+  providers: [Navigation]
 })
 export class AppComponent {
   title = 'DevParaná Creator'
+
+  constructor(readonly navigation: Navigation) {
+    console.log(navigation.links$);
+
+  }
 }
 
 if (typeof Worker !== 'undefined') {
