@@ -25,6 +25,14 @@ export class Transcoder {
     return this._createLink(data)
   }
 
+  async fromBlob(file: Blob) {
+    await this.ffmpeg.load()
+    this.ffmpeg.FS('writeFile', 'input.webm', await fetchFile(file))
+    await this.ffmpeg.run('-i', 'input.webm', 'output.mp4')
+    const data = this.ffmpeg.FS('readFile', 'output.mp4')
+    return this._createLink(data)
+  }
+
   private _createLink(data: Uint8Array) {
     const file = BlobFactory.fromFS(data, 'video/mp4')
     const href = BlobFactory.toURL(file)

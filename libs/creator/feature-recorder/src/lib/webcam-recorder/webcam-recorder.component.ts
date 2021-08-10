@@ -1,15 +1,13 @@
+import { Timeline } from '@devparana/creator/util-recorder'
+import { RecorderBase } from '../base/recorder-base'
+import { MatDialog } from '@angular/material/dialog'
 import {
   Component,
   ElementRef,
-  AfterViewInit,
   ViewChild,
   OnDestroy,
+  AfterViewInit,
 } from '@angular/core'
-import { RecorderBase } from '../base/recorder-base'
-import { MatDialog } from '@angular/material/dialog'
-import { BehaviorSubject } from 'rxjs'
-
-type RecorderState = 'paused' | 'started' | 'stoped'
 
 @Component({
   templateUrl: './webcam-recorder.component.html',
@@ -17,7 +15,8 @@ type RecorderState = 'paused' | 'started' | 'stoped'
 })
 export class WebcamRecorderComponent
   extends RecorderBase
-  implements AfterViewInit, OnDestroy {
+  implements AfterViewInit, OnDestroy
+{
   recorder?: MediaRecorder
   stream!: MediaStream
   mimeType!: string
@@ -45,8 +44,8 @@ export class WebcamRecorderComponent
   recordedRef!: ElementRef<HTMLVideoElement>
   recordedEl!: HTMLVideoElement
 
-  constructor(readonly dialog: MatDialog) {
-    super(dialog)
+  constructor(readonly dialog: MatDialog, readonly timeline: Timeline) {
+    super(dialog, timeline)
   }
 
   getMedia(constraints: MediaStreamConstraints): Promise<MediaStream> {
@@ -67,6 +66,16 @@ export class WebcamRecorderComponent
       const len = this.recordedBlobs.length
       this._completed.next(!active || len === 0)
     }
+  }
+
+  download() {
+    // this.timeline.load(this.recordedBlobs)
+    // const file = new File(this.recordedBlobs, '')
+    // const blob = new Blob(this.recordedBlobs, { type: this.mimeType })
+    // const link = document.createElement('a')
+    // link.href = URL.createObjectURL(blob)
+    // link.download = getCurrentDate() + '-video.webm'
+    // link.click()
   }
 
   ngOnDestroy(): void {

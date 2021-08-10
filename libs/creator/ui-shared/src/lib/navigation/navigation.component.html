@@ -12,6 +12,8 @@
       <a
         *ngFor="let item of navigation.links$ | async"
         mat-list-item
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
         [routerLink]="item.path"
       >
         {{ item.label }}

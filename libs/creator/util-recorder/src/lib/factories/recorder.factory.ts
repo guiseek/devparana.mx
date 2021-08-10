@@ -21,7 +21,7 @@ export class RecorderFactory {
     })
   }
 
-  static create(stream: MediaStream) {
+  static get mimeType() {
     const mimeTypes: string[] = [
       'video/webm;codecs=vp9,opus',
       'video/webm;codecs=vp8,opus',
@@ -37,6 +37,11 @@ export class RecorderFactory {
       console.error('MediaRecorder support')
     }
 
+    return mimeType
+  }
+
+  static create(stream: MediaStream) {
+    const mimeType = RecorderFactory.mimeType
     return new MediaRecorder(stream, { mimeType })
   }
 }

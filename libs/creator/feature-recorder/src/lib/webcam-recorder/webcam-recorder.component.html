@@ -4,6 +4,7 @@
       #recorderRef
       playsinline
       autoplay
+      muted
       [ngClass]="{ hidden: (completed$ | async) }"
     ></video>
     <video
@@ -64,10 +65,12 @@
       [disabled]="recorder?.state != 'inactive'"
       mat-mini-fab
       matTooltip="Descartar"
-      (click)="stop()"
+      (click)="retry()"
     >
       <mat-icon>undo</mat-icon>
     </button>
+
+    <devpr-rec [active]="recorder?.state === 'recording'"></devpr-rec>
   </div>
 
   <button

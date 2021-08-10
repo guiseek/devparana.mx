@@ -9,11 +9,14 @@
       <mat-icon aria-label="Ícone de menu">menu</mat-icon>
     </button>
 
-    <a mat-button *ngFor="let link of navigation.links$ | async" [routerLink]="link.path">
+    <a
+      mat-button
+      *ngFor="let link of navigation.links$ | async"
+      [routerLink]="link.path"
+    >
       <mat-icon>{{ link.icon }}</mat-icon>
       <span>{{ link.label }}</span>
     </a>
-
   </devpr-header>
 
   <router-outlet></router-outlet>

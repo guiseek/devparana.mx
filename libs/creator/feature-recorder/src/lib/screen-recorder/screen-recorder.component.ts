@@ -1,6 +1,13 @@
-import { Component, ElementRef, AfterViewInit, ViewChild, OnDestroy } from '@angular/core'
+import { Timeline } from '@devparana/creator/util-recorder'
 import { RecorderBase } from '../base/recorder-base'
 import { MatDialog } from '@angular/material/dialog'
+import {
+  Component,
+  ElementRef,
+  ViewChild,
+  OnDestroy,
+  AfterViewInit,
+} from '@angular/core'
 
 @Component({
   templateUrl: './screen-recorder.component.html',
@@ -37,12 +44,21 @@ export class ScreenRecorderComponent
   recordedRef!: ElementRef<HTMLVideoElement>
   recordedEl!: HTMLVideoElement
 
-  constructor(readonly dialog: MatDialog) {
-    super(dialog)
+  constructor(readonly dialog: MatDialog, readonly timeline: Timeline) {
+    super(dialog, timeline)
   }
 
-  getMedia(constraints: MediaStreamConstraints): Promise<MediaStream> {
-    return navigator.mediaDevices.getDisplayMedia(constraints)
+  async getMedia({
+    audio,
+    video,
+  }: MediaStreamConstraints): Promise<MediaStream> {
+    const stream = new MediaStream()
+    const device = navigator.mediaDevices
+    const user = await device.getUserMedia({ audio })
+    const display = await device.getDisplayMedia({ video })
+    stream.addTrack(display.getTracks()[0])
+    stream.addTrack(user.getTracks()[0])
+    return stream
   }
 
   ngAfterViewInit(): void {

@@ -1,3 +1,4 @@
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
 import { NavigationComponent } from './navigation/navigation.component'
 import { InputFileDirective } from './directives/input-file.directive'
 import { DropFileDirective } from './directives/drop-file.directive'
@@ -14,8 +15,8 @@ import { MatListModule } from '@angular/material/list'
 import { LayoutModule } from '@angular/cdk/layout'
 import { CommonModule } from '@angular/common'
 import { RouterModule } from '@angular/router'
-import { NgModule } from '@angular/core';
-import { PlayPauseComponent } from './play-pause/play-pause.component'
+import { NgModule } from '@angular/core'
+import { RecComponent } from './rec/rec.component'
 
 @NgModule({
   imports: [
@@ -29,6 +30,7 @@ import { PlayPauseComponent } from './play-pause/play-pause.component'
     MatDialogModule,
     MatSidenavModule,
     MatToolbarModule,
+    MatProgressSpinnerModule,
   ],
   declarations: [
     HeaderComponent,
@@ -37,7 +39,7 @@ import { PlayPauseComponent } from './play-pause/play-pause.component'
     DropFileDirective,
     WormholeComponent,
     DownloadComponent,
-    PlayPauseComponent,
+    RecComponent,
   ],
   exports: [
     HeaderComponent,
@@ -46,7 +48,7 @@ import { PlayPauseComponent } from './play-pause/play-pause.component'
     DropFileDirective,
     WormholeComponent,
     DownloadComponent,
-    PlayPauseComponent,
+    RecComponent,
   ],
 })
 export class CreatorUiSharedModule {}
@@ -57,4 +59,5 @@ export { NavigationComponent } from './navigation/navigation.component'
 export { DownloadComponent } from './download/download.component'
 export { WormholeComponent } from './wormhole/wormhole.component'
 export { HeaderComponent } from './header/header.component'
+export { RecComponent } from './rec/rec.component'
 export { Navigation } from './navigation/navigation'

@@ -1,7 +1,7 @@
-import { Blob } from './blob.factory'
+import { BlobFactory } from './blob.factory'
 
-describe('Blob', () => {
+describe('BlobFactory', () => {
   it('should create an instance', () => {
-    expect(new Blob()).toBeTruthy()
+    expect(new BlobFactory()).toBeTruthy()
   })
 })
