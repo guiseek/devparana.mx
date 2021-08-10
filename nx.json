@@ -41,6 +41,9 @@
     },
     "creator-util-recorder": {
       "tags": ["type:util", "scope:creator"]
+    },
+    "creator-util-typings": {
+      "tags": []
     }
   }
 }

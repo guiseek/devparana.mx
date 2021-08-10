@@ -1,4 +1,4 @@
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject } from 'rxjs'
 
 export class Link {
   constructor(
@@ -9,14 +9,14 @@ export class Link {
 }
 
 export class Navigation {
-  private _links = new BehaviorSubject<Link[]>([]);
-  public links$ = this._links.asObservable();
+  private _links = new BehaviorSubject<Link[]>([])
+  public links$ = this._links.asObservable()
 
   addLink(link: Link) {
-    this._links.next([...this._links.value, link]);
+    this._links.next([...this._links.value, link])
   }
 
   setLinkS(links: Link[]) {
-    this._links.next(links);
+    this._links.next(links)
   }
 }

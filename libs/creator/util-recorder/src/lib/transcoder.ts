@@ -1,11 +1,7 @@
-import {
-  FFmpeg,
-  fetchFile,
-  LogCallback,
-  createFFmpeg,
-} from '@ffmpeg/ffmpeg'
-import { BehaviorSubject } from 'rxjs'
 import { getCurrentDate } from './get-current-date'
+import { BlobFactory } from './factories'
+import { BehaviorSubject } from 'rxjs'
+import { FFmpeg, fetchFile, LogCallback, createFFmpeg } from '@ffmpeg/ffmpeg'
 
 export class Transcoder {
   private _log = new BehaviorSubject<string[]>([])
@@ -26,14 +22,15 @@ export class Transcoder {
     this.ffmpeg.FS('writeFile', file.name, await fetchFile(file))
     await this.ffmpeg.run('-i', file.name, 'output.mp4')
     const data = this.ffmpeg.FS('readFile', 'output.mp4')
-    return this._createLink(data.buffer)
+    return this._createLink(data)
   }
 
-  private _createLink(buffer: ArrayBufferLike) {
-    const blob = new Blob([buffer], { type: 'video/mp4' })
-    return {
-      href: URL.createObjectURL(blob),
-      download: getCurrentDate() + '.mp4'
-    }
+  private _createLink(data: Uint8Array) {
+    const file = BlobFactory.fromFS(data, 'video/mp4')
+    const href = BlobFactory.toURL(file)
+
+    const name = getCurrentDate() + '.mp4'
+
+    return { href, download: name }
   }
 }
