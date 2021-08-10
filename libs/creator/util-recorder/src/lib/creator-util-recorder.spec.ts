@@ -1,7 +1,9 @@
-import { creatorUtilRecorder } from './creator-util-recorder'
+import { createTranscoder } from './creator-util-recorder'
+
+const mockFile = new File([], 'nome.webm', { type: 'video/webm' })
 
 describe('creatorUtilRecorder', () => {
   it('should work', () => {
-    expect(creatorUtilRecorder()).toEqual('creator-util-recorder')
+    expect(createTranscoder(mockFile)).toBeInstanceOf(Promise)
   })
 })

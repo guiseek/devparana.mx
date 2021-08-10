@@ -2,8 +2,8 @@ import { RecorderOptionsComponent } from './recorder-options/recorder-options.co
 import { WebcamRecorderComponent } from './webcam-recorder/webcam-recorder.component'
 import { ScreenRecorderComponent } from './screen-recorder/screen-recorder.component'
 import { VideoTranscoderComponent } from './video-transcoder/video-transcoder.component'
+import { Timeline, Transcoder } from '@devparana/creator/util-recorder'
 import { CreatorUiSharedModule } from '@devparana/creator/ui-shared'
-import { Transcoder } from '@devparana/creator/util-recorder'
 import { MatToolbarModule } from '@angular/material/toolbar'
 import { MatTooltipModule } from '@angular/material/tooltip'
 import { MatDialogModule } from '@angular/material/dialog'
@@ -53,7 +53,7 @@ import { NgModule } from '@angular/core'
     ScreenRecorderComponent,
     VideoTranscoderComponent,
   ],
-  providers: [Transcoder],
+  providers: [Transcoder, Timeline],
 })
 export class CreatorFeatureRecorderModule {}
 

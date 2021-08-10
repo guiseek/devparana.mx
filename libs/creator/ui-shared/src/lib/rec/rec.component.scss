@@ -1,0 +1,16 @@
+:host {
+  width: 18px;
+  height: 18px;
+  border: 2px solid red;
+  border-radius: 50%;
+  padding: 4px;
+
+  .active {
+    width: 100%;
+    height: 100%;
+    content: ' ';
+    display: flex;
+    border-radius: 50%;
+    background-color: red;
+  }
+}

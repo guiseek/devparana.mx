@@ -1,9 +1,12 @@
-import { BlobFactory, RecorderFactory } from '@devparana/creator/util-recorder'
-import { BehaviorSubject, interval, Observable, Subject } from 'rxjs'
+import {
+  BlobFactory,
+  RecorderFactory,
+  Timeline,
+} from '@devparana/creator/util-recorder'
 import { DownloadComponent } from '@devparana/creator/ui-shared'
+import { BehaviorSubject, interval, Subject } from 'rxjs'
 import { finalize, map, take } from 'rxjs/operators'
 import { MatDialog } from '@angular/material/dialog'
-import { ControlState } from './control-base'
 
 export abstract class RecorderBase {
   abstract recorderEl: HTMLVideoElement
@@ -17,9 +20,6 @@ export abstract class RecorderBase {
 
   recordedBlobs: Blob[] = []
 
-  protected _state = new BehaviorSubject<ControlState>('off')
-  public state$ = this._state.asObservable()
-
   protected _active = new BehaviorSubject<boolean>(false)
   public active$ = this._active.asObservable()
 
@@ -29,22 +29,7 @@ export abstract class RecorderBase {
   protected _countdown = new Subject<number>()
   public countdown$ = this._countdown.asObservable()
 
-  get disabled() {
-    const state = this.recorder?.state ?? false
-    const active = this.stream?.active ?? false
-    return {
-      stream: active,
-      play: !active || state,
-      pause: !state || state === 'inactive',
-      stop: state !== 'recording',
-      undo: state !== 'inactive',
-      download: state !== 'inactive',
-    }
-  }
-
-  constructor(readonly dialog: MatDialog) {
-
-  }
+  constructor(readonly dialog: MatDialog, readonly timeline: Timeline) {}
 
   abstract getMedia(constraints: MediaStreamConstraints): Promise<MediaStream>
 
@@ -52,7 +37,7 @@ export abstract class RecorderBase {
     const constraints = this.constraints ?? { video: true, audio: true }
     this.getMedia(constraints).then((stream) => {
       this.recorderEl.srcObject = stream
-      this._state.next('waiting')
+      this.recorderEl.muted = true
       this.stream = stream
     })
   }
@@ -103,21 +88,20 @@ export abstract class RecorderBase {
 
       this.recorder.onstop = () => {
         const blob = BlobFactory.fromArray(this.recordedBlobs, this.mimeType)
-        this.recordedEl.src = BlobFactory.toURL(blob)
-        this.recordedEl.controls = true
-        queueMicrotask(() => {
-          console.log(this.recordedEl)
-          console.log(this.recordedEl.play)
+        const url = BlobFactory.toURL(blob)
 
-          this.recordedEl.play()
-        })
+        this.recordedEl.src = url
+
+        // this.timeline.load(url);
+
+        this.recordedEl.controls = true
+        this.recordedEl.play()
       }
-      console.log(this.recorder)
     }
   }
 
   retry() {
-    ;(this.recorder as any) = null
+    this.recorder = undefined
     this._completed.next(false)
     this.recordedEl.controls = false
     this.recordedEl.src = ''

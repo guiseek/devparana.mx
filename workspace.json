@@ -23,8 +23,7 @@
               "apps/creator/src/assets"
             ],
             "styles": ["apps/creator/src/styles.scss"],
-            "scripts": [],
-            "webWorkerTsConfig": "apps/creator/tsconfig.worker.json"
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -91,8 +90,7 @@
           "outputs": ["coverage/apps/creator"],
           "options": {
             "jestConfig": "apps/creator/jest.config.js",
-            "passWithNoTests": true,
-            "webWorkerTsConfig": "apps/creator/tsconfig.worker.json"
+            "passWithNoTests": true
           }
         }
       }

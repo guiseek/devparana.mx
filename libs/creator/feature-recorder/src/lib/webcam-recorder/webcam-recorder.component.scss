@@ -58,10 +58,13 @@
     display: flex;
     padding: 20px;
     justify-content: space-around;
+    align-items: center;
+
     > div {
       gap: 20px;
       display: flex;
       justify-content: space-around;
+      align-items: center;
     }
   }
 
