@@ -7,16 +7,23 @@ import { Navigation } from '@devparana/creator/ui-shared'
 })
 export class ShellNavigationComponent {
   constructor(readonly navigation: Navigation) {
-    this.navigation.addLink({ path: '/recorder', label: 'Opções de gravação' })
     this.navigation.addLink({
+      icon: 'video_library',
+      path: '/recorder',
+      label: 'Opções de gravação',
+    })
+    this.navigation.addLink({
+      icon: 'video_camera_front',
       path: '/recorder/webcam',
       label: 'Usar minha webcam',
     })
     this.navigation.addLink({
+      icon: 'screen_share',
       path: '/recorder/screen',
       label: 'Gravação de tela',
     })
     this.navigation.addLink({
+      icon: 'timelapse',
       path: '/recorder/video',
       label: 'Converter vídeos',
     })
