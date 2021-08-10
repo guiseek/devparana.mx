@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import { Component, HostBinding } from '@angular/core'
 import { Navigation } from '@devparana/creator/ui-shared'
 
 @Component({
@@ -6,6 +6,9 @@ import { Navigation } from '@devparana/creator/ui-shared'
   templateUrl: './shell-navigation.component.html',
 })
 export class ShellNavigationComponent {
+  @HostBinding('class.full-height')
+  fullHeight = true
+
   constructor(readonly navigation: Navigation) {
     this.navigation.addLink({
       icon: 'video_library',

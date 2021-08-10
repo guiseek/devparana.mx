@@ -18,3 +18,9 @@ body {
 .spacer {
   flex: 1 1 auto;
 }
+
+.full-height {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}

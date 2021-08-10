@@ -1,4 +1,10 @@
-import { Component, ElementRef, AfterViewInit, ViewChild } from '@angular/core'
+import {
+  Component,
+  ElementRef,
+  AfterViewInit,
+  ViewChild,
+  OnDestroy,
+} from '@angular/core'
 import { RecorderBase } from '../base/recorder-base'
 import { MatDialog } from '@angular/material/dialog'
 import { BehaviorSubject } from 'rxjs'
@@ -11,12 +17,10 @@ type RecorderState = 'paused' | 'started' | 'stoped'
 })
 export class WebcamRecorderComponent
   extends RecorderBase
-  implements AfterViewInit
-{
-  recorder!: MediaRecorder
+  implements AfterViewInit, OnDestroy {
+  recorder?: MediaRecorder
   stream!: MediaStream
-
-  mimeType: string | undefined
+  mimeType!: string
 
   constraints = {
     audio: true,
@@ -41,9 +45,6 @@ export class WebcamRecorderComponent
   recordedRef!: ElementRef<HTMLVideoElement>
   recordedEl!: HTMLVideoElement
 
-  private _state = new BehaviorSubject<RecordingState | null>(null)
-  public state$ = this._state.asObservable()
-
   constructor(readonly dialog: MatDialog) {
     super(dialog)
   }
@@ -56,20 +57,19 @@ export class WebcamRecorderComponent
     this.recorderEl = this.recorderRef.nativeElement
     this.recordedEl = this.recordedRef.nativeElement
 
-    // super.capture()
-
     this.recorderEl.onplay = () => {
       this._active.next(true)
-      this._state.next(this.recorder.state)
-      console.log('onplay: ', this.recorder.state)
     }
+
     this.recorderEl.onpause = () => {
       this._active.next(false)
       const active = this._active.value
       const len = this.recordedBlobs.length
       this._completed.next(!active || len === 0)
-      this._state.next(this.recorder.state)
-      console.log('onpause: ', this.recorder.state)
     }
+  }
+
+  ngOnDestroy(): void {
+    super.destroy()
   }
 }

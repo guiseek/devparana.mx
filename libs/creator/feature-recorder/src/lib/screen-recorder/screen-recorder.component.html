@@ -25,7 +25,7 @@
   <button
     mat-fab
     matTooltip="Capturar"
-    [disabled]="active$ | async"
+    [disabled]="stream?.active"
     (click)="capture()"
   >
     <mat-icon>screen_share</mat-icon>
@@ -33,19 +33,19 @@
 
   <div>
     <button
-      [disabled]="(countdown$ | async) == 0"
       mat-mini-fab
       matTooltip="Iniciar gravação"
+      [disabled]="!stream?.active || !!recorder?.state"
       (click)="start()"
     >
       <mat-icon>play_arrow</mat-icon>
     </button>
     <button
-      [disabled]="disableToggle"
       mat-mini-fab
       [matTooltip]="
         recorder?.state == 'paused' ? 'Continuar gravação' : 'Pausar gravação'
       "
+      [disabled]="disableToggle"
       (click)="toggleRecording()"
     >
       <mat-icon>
@@ -59,6 +59,14 @@
       (click)="stop()"
     >
       <mat-icon>stop</mat-icon>
+    </button>
+    <button
+      [disabled]="recorder?.state != 'inactive'"
+      mat-mini-fab
+      matTooltip="Descartar"
+      (click)="stop()"
+    >
+      <mat-icon>undo</mat-icon>
     </button>
   </div>
 
