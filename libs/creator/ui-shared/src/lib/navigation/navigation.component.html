@@ -15,6 +15,7 @@
         routerLinkActive="active"
         [routerLinkActiveOptions]="{ exact: true }"
         [routerLink]="item.path"
+        (click)="drawer.close()"
       >
         {{ item.label }}
       </a>

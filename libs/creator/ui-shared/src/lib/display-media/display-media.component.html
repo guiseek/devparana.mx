@@ -1,0 +1,9 @@
+<button
+  mat-fab
+  (click)="onClick()"
+  matTooltip="Capturar"
+  [disabled]="active || crashed"
+  [ngClass]="{ 'mat-button-warn': crashed }"
+>
+  <mat-icon>screen_share</mat-icon>
+</button>

@@ -1,0 +1,32 @@
+<form [formGroup]="deviceForm">
+  <mat-form-field appearance="fill">
+    <mat-label>Microfone</mat-label>
+    <mat-select
+      devprSelectDevice
+      (selectionChange)="valueChange.emit(deviceForm.value)"
+      formControlName="audioinput"
+    >
+      <mat-option
+        *ngFor="let d of audioInputList$ | async"
+        [value]="d.deviceId"
+      >
+        {{ d.label }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Camera</mat-label>
+    <mat-select
+      devprSelectDevice
+      formControlName="videoinput"
+      (selectionChange)="valueChange.emit(deviceForm.value)"
+    >
+      <mat-option
+        *ngFor="let d of videoInputList$ | async"
+        [value]="d.deviceId"
+      >
+        {{ d.label }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</form>

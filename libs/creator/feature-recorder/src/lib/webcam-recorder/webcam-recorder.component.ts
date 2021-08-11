@@ -1,5 +1,10 @@
-import { Timeline } from '@devparana/creator/util-recorder'
-import { RecorderBase } from '../base/recorder-base'
+import { CountdownComponent, RecorderBase } from '@devparana/creator/ui-shared'
+import {
+  BlobFactory,
+  getCurrentDate,
+  Timeline,
+  Transcoder,
+} from '@devparana/creator/util-recorder'
 import { MatDialog } from '@angular/material/dialog'
 import {
   Component,
@@ -17,9 +22,13 @@ export class WebcamRecorderComponent
   extends RecorderBase
   implements AfterViewInit, OnDestroy
 {
+  panelOpenState = false
   recorder?: MediaRecorder
   stream!: MediaStream
   mimeType!: string
+
+  audioStream!: MediaStream
+  videoStream!: MediaStream
 
   constraints = {
     audio: true,
@@ -36,6 +45,9 @@ export class WebcamRecorderComponent
     },
   }
 
+  @ViewChild(CountdownComponent)
+  countdown!: CountdownComponent
+
   @ViewChild('recorderRef')
   recorderRef!: ElementRef<HTMLVideoElement>
   recorderEl!: HTMLVideoElement
@@ -45,7 +57,7 @@ export class WebcamRecorderComponent
   recordedEl!: HTMLVideoElement
 
   constructor(readonly dialog: MatDialog, readonly timeline: Timeline) {
-    super(dialog, timeline)
+    super(dialog)
   }
 
   getMedia(constraints: MediaStreamConstraints): Promise<MediaStream> {
@@ -68,14 +80,26 @@ export class WebcamRecorderComponent
     }
   }
 
+  start() {
+    this.countdown.start()
+  }
+
   download() {
     // this.timeline.load(this.recordedBlobs)
-    // const file = new File(this.recordedBlobs, '')
-    // const blob = new Blob(this.recordedBlobs, { type: this.mimeType })
-    // const link = document.createElement('a')
-    // link.href = URL.createObjectURL(blob)
-    // link.download = getCurrentDate() + '-video.webm'
-    // link.click()
+    const transcoder = new Transcoder()
+    const file = new File(this.recordedBlobs, '')
+    const blobs = BlobFactory.fromArray(this.recordedBlobs, 'video/webm')
+    transcoder.fromBlob(blobs).then((res) => {
+      const link = document.createElement('a')
+      Object.assign(link, res)
+      link.click()
+    })
+
+    const blob = new Blob(this.recordedBlobs, { type: this.mimeType })
+    const link = document.createElement('a')
+    link.href = URL.createObjectURL(blob)
+    link.download = getCurrentDate() + '-video.webm'
+    link.click()
   }
 
   ngOnDestroy(): void {

@@ -6,6 +6,7 @@ import { WormholeComponent } from './wormhole/wormhole.component'
 import { DownloadComponent } from './download/download.component'
 import { MatSidenavModule } from '@angular/material/sidenav'
 import { MatToolbarModule } from '@angular/material/toolbar'
+import { MatTooltipModule } from '@angular/material/tooltip'
 import { MatDialogModule } from '@angular/material/dialog'
 import { HeaderComponent } from './header/header.component'
 import { MatButtonModule } from '@angular/material/button'
@@ -16,7 +17,13 @@ import { LayoutModule } from '@angular/cdk/layout'
 import { CommonModule } from '@angular/common'
 import { RouterModule } from '@angular/router'
 import { NgModule } from '@angular/core'
-import { RecComponent } from './rec/rec.component'
+import { RecComponent } from './rec/rec.component';
+import { DisplayMediaComponent } from './display-media/display-media.component'
+import { UserMediaComponent } from './user-media/user-media.component';
+import { CountdownComponent } from './countdown/countdown.component';
+import { ControlsComponent } from './controls/controls.component';
+import { TimelineComponent } from './timeline/timeline.component';
+import { CanvasDirective } from './directives/canvas.directive';
 
 @NgModule({
   imports: [
@@ -30,6 +37,7 @@ import { RecComponent } from './rec/rec.component'
     MatDialogModule,
     MatSidenavModule,
     MatToolbarModule,
+    MatTooltipModule,
     MatProgressSpinnerModule,
   ],
   declarations: [
@@ -40,6 +48,12 @@ import { RecComponent } from './rec/rec.component'
     WormholeComponent,
     DownloadComponent,
     RecComponent,
+    CanvasDirective,
+    TimelineComponent,
+    ControlsComponent,
+    CountdownComponent,
+    UserMediaComponent,
+    DisplayMediaComponent,
   ],
   exports: [
     HeaderComponent,
@@ -49,15 +63,28 @@ import { RecComponent } from './rec/rec.component'
     WormholeComponent,
     DownloadComponent,
     RecComponent,
+    CanvasDirective,
+    TimelineComponent,
+    ControlsComponent,
+    CountdownComponent,
+    UserMediaComponent,
+    DisplayMediaComponent,
   ],
 })
 export class CreatorUiSharedModule {}
 
+export { ControlsComponent } from './controls/controls.component'
+export { CountdownComponent } from './countdown/countdown.component'
 export { DropFileDirective } from './directives/drop-file.directive'
 export { InputFileDirective } from './directives/input-file.directive'
 export { NavigationComponent } from './navigation/navigation.component'
-export { DownloadComponent } from './download/download.component'
+export { DisplayMediaComponent } from './display-media/display-media.component'
+export { UserMediaComponent } from './user-media/user-media.component';
+export { TimelineComponent } from './timeline/timeline.component'
 export { WormholeComponent } from './wormhole/wormhole.component'
+export { DownloadComponent } from './download/download.component'
+export { CanvasDirective } from './directives/canvas.directive'
 export { HeaderComponent } from './header/header.component'
 export { RecComponent } from './rec/rec.component'
+export { RecorderBase } from './base/recorder-base'
 export { Navigation } from './navigation/navigation'

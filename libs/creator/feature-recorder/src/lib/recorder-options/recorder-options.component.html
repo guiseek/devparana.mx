@@ -1,16 +1,4 @@
 <section>
-  <mat-card>
-    <mat-card-content>
-      <img
-        mat-card-image
-        src="/assets/images/rec-campaign.svg"
-        alt="Campanha para gravação"
-      />
-    </mat-card-content>
-  </mat-card>
-</section>
-
-<section>
   <mat-card *ngFor="let card of options">
     <mat-card-header>
       <h3 mat-card-title>
@@ -20,14 +8,24 @@
         {{ card.subtitle }}
       </p>
     </mat-card-header>
-    <mat-card-content>
-      <img mat-card-image [src]="card.image" [alt]="card.title" />
-    </mat-card-content>
+    <img mat-card-image [src]="card.image" [alt]="card.title" />
     <mat-card-content>
       <p>{{ card.description }}</p>
     </mat-card-content>
     <mat-card-actions align="end">
-      <a mat-stroked-button [routerLink]="card.path">Beleza</a>
+      <a mat-flat-button color="primary" [routerLink]="card.path">Continuar...</a>
     </mat-card-actions>
+  </mat-card>
+</section>
+
+<section>
+  <mat-card>
+    <mat-card-content>
+      <img
+        mat-card-image
+        src="/assets/images/rec-campaign.svg"
+        alt="Campanha para gravação"
+      />
+    </mat-card-content>
   </mat-card>
 </section>
