@@ -1,0 +1,38 @@
+<button
+  mat-mini-fab
+  matTooltip="Iniciar gravação"
+  [disabled]="!stream?.active || !!recorder?.state"
+  (click)="start.emit()"
+>
+  <mat-icon>play_arrow</mat-icon>
+</button>
+<button
+  mat-mini-fab
+  [matTooltip]="
+    recorder?.state == 'paused' ? 'Continuar gravação' : 'Pausar gravação'
+  "
+  [disabled]="disableToggle"
+  (click)="toggle.emit()"
+>
+  <mat-icon>
+    {{ recorder?.state == 'paused' ? 'not_started' : 'pause' }}
+  </mat-icon>
+</button>
+<button
+  [disabled]="recorder?.state != 'recording'"
+  mat-mini-fab
+  matTooltip="Parar gravação"
+  (click)="stop.emit()"
+>
+  <mat-icon>stop</mat-icon>
+</button>
+<button
+  [disabled]="recorder?.state != 'inactive'"
+  mat-mini-fab
+  matTooltip="Descartar"
+  (click)="retry.emit()"
+>
+  <mat-icon>undo</mat-icon>
+</button>
+
+<devpr-rec [active]="recorder?.state === 'recording'"></devpr-rec>

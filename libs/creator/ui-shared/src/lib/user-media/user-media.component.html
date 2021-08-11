@@ -1,0 +1,9 @@
+<button
+  mat-fab
+  (click)="onClick()"
+  matTooltip="Capturar"
+  [disabled]="active || crashed"
+  [ngClass]="{ 'mat-button-warn': crashed }"
+>
+  <mat-icon>video_camera_front</mat-icon>
+</button>

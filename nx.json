@@ -30,16 +30,25 @@
     "creator": {
       "tags": ["type:app"]
     },
+    "creator-feature-editor": {
+      "tags": ["type:feature", "scope:creator"]
+    },
     "creator-feature-recorder": {
       "tags": ["type:feature"]
     },
     "creator-feature-shell": {
       "tags": ["type:shell"]
     },
+    "creator-ui-recorder": {
+      "tags": ["type:ui", "scope:creator"]
+    },
     "creator-ui-shared": {
       "tags": ["type:ui"]
     },
     "creator-util-recorder": {
+      "tags": ["type:util", "scope:creator"]
+    },
+    "creator-util-timeliner": {
       "tags": ["type:util", "scope:creator"]
     },
     "creator-util-typings": {

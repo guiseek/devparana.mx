@@ -25,6 +25,13 @@ import { NgModule } from '@angular/core'
                 (m) => m.CreatorFeatureRecorderModule
               ),
           },
+          {
+            path: 'editor',
+            loadChildren: () =>
+              import('@devparana/creator/feature-editor').then(
+                (module) => module.CreatorFeatureEditorModule
+              ),
+          },
         ],
       },
     ]),

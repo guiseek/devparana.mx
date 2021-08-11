@@ -1,5 +1,5 @@
-import { Timeline } from '@devparana/creator/util-recorder'
-import { RecorderBase } from '../base/recorder-base'
+import { CountdownComponent, RecorderBase } from '@devparana/creator/ui-shared'
+import { BlobFactory, Timeline, Transcoder } from '@devparana/creator/util-recorder'
 import { MatDialog } from '@angular/material/dialog'
 import {
   Component,
@@ -36,6 +36,9 @@ export class ScreenRecorderComponent
     },
   }
 
+  @ViewChild(CountdownComponent)
+  countdown!: CountdownComponent
+
   @ViewChild('recorderRef')
   recorderRef!: ElementRef<HTMLVideoElement>
   recorderEl!: HTMLVideoElement
@@ -45,7 +48,7 @@ export class ScreenRecorderComponent
   recordedEl!: HTMLVideoElement
 
   constructor(readonly dialog: MatDialog, readonly timeline: Timeline) {
-    super(dialog, timeline)
+    super(dialog)
   }
 
   async getMedia({
@@ -75,6 +78,19 @@ export class ScreenRecorderComponent
       const len = this.recordedBlobs.length
       this._completed.next(!active || len === 0)
     }
+  }
+
+  download() {
+    const blob = new Blob(this.recordedBlobs, { type: this.mimeType })
+    const link = document.createElement('a')
+    link.href = URL.createObjectURL(blob)
+    const date = new Date().toLocaleString()
+    link.download = `Gravação ${date}.webm`
+    link.click()
+  }
+
+  start() {
+    this.countdown.start()
   }
 
   ngOnDestroy(): void {

@@ -1,0 +1,22 @@
+<section class="container">
+  <div class="container">
+    <video
+      #recorderRef
+      playsinline
+      autoplay
+      muted
+      [ngClass]="{ hidden: (completed$ | async) }"
+    ></video>
+    <video
+      #recordedRef
+      playsinline
+      controls
+      [ngClass]="{ hidden: !(completed$ | async) }"
+    ></video>
+  </div>
+</section>
+
+dev
+<!-- <section class="container">
+  <canvas></canvas>
+</section> -->

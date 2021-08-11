@@ -1,12 +1,12 @@
+import { DownloadComponent } from '../download/download.component'
+import { BehaviorSubject, interval, Subject } from 'rxjs'
+import { MatDialog } from '@angular/material/dialog'
+import { finalize, map, take } from 'rxjs/operators'
 import {
   BlobFactory,
   RecorderFactory,
   Timeline,
 } from '@devparana/creator/util-recorder'
-import { DownloadComponent } from '@devparana/creator/ui-shared'
-import { BehaviorSubject, interval, Subject } from 'rxjs'
-import { finalize, map, take } from 'rxjs/operators'
-import { MatDialog } from '@angular/material/dialog'
 
 export abstract class RecorderBase {
   abstract recorderEl: HTMLVideoElement
@@ -29,17 +29,19 @@ export abstract class RecorderBase {
   protected _countdown = new Subject<number>()
   public countdown$ = this._countdown.asObservable()
 
-  constructor(readonly dialog: MatDialog, readonly timeline: Timeline) {}
+  constructor(readonly dialog: MatDialog) {}
 
   abstract getMedia(constraints: MediaStreamConstraints): Promise<MediaStream>
 
   capture() {
     const constraints = this.constraints ?? { video: true, audio: true }
-    this.getMedia(constraints).then((stream) => {
-      this.recorderEl.srcObject = stream
-      this.recorderEl.muted = true
-      this.stream = stream
-    })
+    this.getMedia(constraints).then((stream) => this.onStream(stream))
+  }
+
+  onStream(stream: MediaStream) {
+    this.recorderEl.srcObject = stream
+    this.recorderEl.muted = true
+    this.stream = stream
   }
 
   start() {
@@ -55,6 +57,40 @@ export abstract class RecorderBase {
   get disableToggle() {
     const state = this.recorder?.state ?? ''
     return !state || state === 'inactive'
+  }
+
+
+  onDeviceChange({ audioinput, videoinput }: Record<MediaDeviceKind, string>) {
+    console.log(audioinput, videoinput)
+    if (audioinput) {
+      this.getAudioByDevice(audioinput).then(
+        (stream) => {
+          console.log(stream);
+          this.onStream(stream)
+          // this.audioStream = stream
+        }
+        )
+      }
+      if (videoinput) {
+        this.getAudioByDevice(videoinput).then(
+          (stream) => {
+          this.onStream(stream)
+          // this.videoStream = stream
+        }
+      )
+    }
+  }
+
+  getAudioByDevice(deviceId: string) {
+    const devices = navigator.mediaDevices
+    const constraints = { audio: { deviceId } }
+    return devices.getUserMedia(constraints)
+  }
+
+  getVideoByDevice(deviceId: string) {
+    const devices = navigator.mediaDevices
+    const constraints = { video: { deviceId } }
+    return devices.getUserMedia(constraints)
   }
 
   toggleRecording() {

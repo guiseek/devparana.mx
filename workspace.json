@@ -95,6 +95,47 @@
         }
       }
     },
+    "creator-feature-editor": {
+      "projectType": "library",
+      "root": "libs/creator/feature-editor",
+      "sourceRoot": "libs/creator/feature-editor/src",
+      "prefix": "devparana",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/angular:ng-packagr-lite",
+          "outputs": ["dist/libs/creator/feature-editor"],
+          "options": {
+            "project": "libs/creator/feature-editor/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/creator/feature-editor/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "libs/creator/feature-editor/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/creator/feature-editor"],
+          "options": {
+            "jestConfig": "libs/creator/feature-editor/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/creator/feature-editor/src/**/*.ts",
+              "libs/creator/feature-editor/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
     "creator-feature-recorder": {
       "projectType": "library",
       "root": "libs/creator/feature-recorder",
@@ -140,6 +181,47 @@
             "lintFilePatterns": [
               "libs/creator/feature-shell/src/**/*.ts",
               "libs/creator/feature-shell/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "creator-ui-recorder": {
+      "projectType": "library",
+      "root": "libs/creator/ui-recorder",
+      "sourceRoot": "libs/creator/ui-recorder/src",
+      "prefix": "devpr",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/angular:ng-packagr-lite",
+          "outputs": ["dist/libs/creator/ui-recorder"],
+          "options": {
+            "project": "libs/creator/ui-recorder/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/creator/ui-recorder/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "libs/creator/ui-recorder/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/creator/ui-recorder"],
+          "options": {
+            "jestConfig": "libs/creator/ui-recorder/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/creator/ui-recorder/src/**/*.ts",
+              "libs/creator/ui-recorder/src/**/*.html"
             ]
           }
         }
@@ -212,6 +294,37 @@
           "outputs": ["coverage/libs/creator/util-recorder"],
           "options": {
             "jestConfig": "libs/creator/util-recorder/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "creator-util-timeliner": {
+      "root": "libs/creator/util-timeliner",
+      "sourceRoot": "libs/creator/util-timeliner/src",
+      "projectType": "library",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/workspace:tsc",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/libs/creator/util-timeliner",
+            "main": "libs/creator/util-timeliner/src/index.ts",
+            "tsConfig": "libs/creator/util-timeliner/tsconfig.lib.json",
+            "assets": ["libs/creator/util-timeliner/*.md"]
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/creator/util-timeliner/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/creator/util-timeliner"],
+          "options": {
+            "jestConfig": "libs/creator/util-timeliner/jest.config.js",
             "passWithNoTests": true
           }
         }

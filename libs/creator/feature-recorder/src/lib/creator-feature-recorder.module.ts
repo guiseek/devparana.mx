@@ -3,7 +3,9 @@ import { WebcamRecorderComponent } from './webcam-recorder/webcam-recorder.compo
 import { ScreenRecorderComponent } from './screen-recorder/screen-recorder.component'
 import { VideoTranscoderComponent } from './video-transcoder/video-transcoder.component'
 import { Timeline, Transcoder } from '@devparana/creator/util-recorder'
+import { CreatorUiRecorderModule } from '@devparana/creator/ui-recorder'
 import { CreatorUiSharedModule } from '@devparana/creator/ui-shared'
+import { MatExpansionModule } from '@angular/material/expansion'
 import { MatToolbarModule } from '@angular/material/toolbar'
 import { MatTooltipModule } from '@angular/material/tooltip'
 import { MatDialogModule } from '@angular/material/dialog'
@@ -27,7 +29,9 @@ import { NgModule } from '@angular/core'
     MatDialogModule,
     MatToolbarModule,
     MatTooltipModule,
+    MatExpansionModule,
     CreatorUiSharedModule,
+    CreatorUiRecorderModule,
     RouterModule.forChild([
       {
         path: '',
@@ -55,7 +59,7 @@ import { NgModule } from '@angular/core'
   ],
   providers: [Transcoder, Timeline],
 })
-export class CreatorFeatureRecorderModule {}
+export class CreatorFeatureRecorderModule { }
 
 export { WebcamRecorderComponent } from './webcam-recorder/webcam-recorder.component'
 export { ScreenRecorderComponent } from './screen-recorder/screen-recorder.component'

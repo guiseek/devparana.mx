@@ -16,61 +16,27 @@
   </div>
 </section>
 
-<ng-container *ngIf="countdown$ | async as countdown">
-  <div class="countdown">
-    <span [ngClass]="{ ping: countdown >= 0 }">{{ countdown }}</span>
-  </div>
-</ng-container>
+<devpr-countdown (record)="record()"></devpr-countdown>
+
+<section class="user-video">
+  <devpr-user-video></devpr-user-video>
+</section>
 
 <footer class="toolbar">
-  <button
-    mat-fab
-    matTooltip="Capturar"
-    [disabled]="stream?.active"
-    (click)="capture()"
-  >
-    <mat-icon>screen_share</mat-icon>
-  </button>
+  <devpr-display-media
+    [active]="stream?.active"
+    (onDisplayMedia)="onStream($event)"
+  ></devpr-display-media>
 
-  <div>
-    <button
-      mat-mini-fab
-      matTooltip="Iniciar gravação"
-      [disabled]="!stream?.active || !!recorder?.state"
-      (click)="start()"
-    >
-      <mat-icon>play_arrow</mat-icon>
-    </button>
-    <button
-      mat-mini-fab
-      [matTooltip]="
-        recorder?.state == 'paused' ? 'Continuar gravação' : 'Pausar gravação'
-      "
-      [disabled]="disableToggle"
-      (click)="toggleRecording()"
-    >
-      <mat-icon>
-        {{ recorder?.state == 'paused' ? 'not_started' : 'pause' }}
-      </mat-icon>
-    </button>
-    <button
-      [disabled]="recorder?.state != 'recording'"
-      mat-mini-fab
-      matTooltip="Parar gravação"
-      (click)="stop()"
-    >
-      <mat-icon>stop</mat-icon>
-    </button>
-    <button
-      [disabled]="recorder?.state != 'inactive'"
-      mat-mini-fab
-      matTooltip="Descartar"
-      (click)="retry()"
-    >
-      <mat-icon>undo</mat-icon>
-    </button>
-
-    <devpr-rec [active]="recorder?.state === 'recording'"></devpr-rec>
+  <div class="center">
+    <devpr-controls
+      [stream]="stream"
+      [recorder]="recorder"
+      (start)="start()"
+      (toggle)="toggleRecording()"
+      (stop)="stop()"
+      (retry)="retry()"
+    ></devpr-controls>
   </div>
 
   <button
