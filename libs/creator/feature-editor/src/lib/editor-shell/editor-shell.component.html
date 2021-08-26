@@ -1,4 +1,21 @@
 <devpr-canvas-editor></devpr-canvas-editor>
 
+<form [formGroup]="form">
+  <section formGroupName="red">
+    <h3 class="mat-heading">Vermelho</h3>
+    <devpr-range-control label="Mínimo" formControlName="min"></devpr-range-control>
+    <devpr-range-control label="Máximo" formControlName="max"></devpr-range-control>
+  </section>
+  <section formGroupName="green">
+    <h3 class="mat-heading">Verde</h3>
+    <devpr-range-control label="Mínimo" formControlName="min"></devpr-range-control>
+    <devpr-range-control label="Máximo" formControlName="max"></devpr-range-control>
+  </section>
+  <section formGroupName="blue">
+    <h3 class="mat-heading">Azul</h3>
+    <devpr-range-control label="Mínimo" formControlName="min"></devpr-range-control>
+    <devpr-range-control label="Máximo" formControlName="max"></devpr-range-control>
+  </section>
+</form>
 
 <devpr-timeline-editor></devpr-timeline-editor>

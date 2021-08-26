@@ -3,20 +3,24 @@ import { CommonModule } from '@angular/common'
 import { MatInputModule } from '@angular/material/input'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatSelectModule } from '@angular/material/select'
+import { MatSliderModule } from '@angular/material/slider'
 import { RecordedSizeComponent } from './recorded-size/recorded-size.component'
 import { ReadableSizePipe } from './pipes/readable-size.pipe'
 import { UserVideoComponent } from './user-video/user-video.component'
 import { SelectDeviceComponent } from './select-device/select-device.component'
 import { SelectDeviceDirective } from './select-device/select-device.directive'
-import { ReactiveFormsModule } from '@angular/forms'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RangeControlComponent } from './range-control/range-control.component'
 
 @NgModule({
   imports: [
     CommonModule,
     MatInputModule,
+    MatSliderModule,
     MatSelectModule,
     MatFormFieldModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule,
   ],
   declarations: [
     RecordedSizeComponent,
@@ -24,6 +28,7 @@ import { ReactiveFormsModule } from '@angular/forms'
     UserVideoComponent,
     SelectDeviceComponent,
     SelectDeviceDirective,
+    RangeControlComponent,
   ],
   exports: [
     RecordedSizeComponent,
@@ -31,6 +36,7 @@ import { ReactiveFormsModule } from '@angular/forms'
     UserVideoComponent,
     SelectDeviceComponent,
     SelectDeviceDirective,
+    RangeControlComponent,
   ],
 })
 export class CreatorUiRecorderModule {}

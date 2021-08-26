@@ -1,3 +1,5 @@
+import { CountdownComponent, RecorderBase } from '@devparana/creator/ui-shared'
+import { MatDialog } from '@angular/material/dialog'
 import {
   Component,
   OnDestroy,
@@ -5,8 +7,6 @@ import {
   ElementRef,
   AfterViewInit,
 } from '@angular/core'
-import { MatDialog } from '@angular/material/dialog'
-import { RecorderBase } from '@devparana/creator/ui-shared'
 
 @Component({
   selector: 'devpr-canvas-editor',
@@ -36,6 +36,17 @@ export class CanvasEditorComponent
     },
   }
 
+  @ViewChild(CountdownComponent)
+  countdown!: CountdownComponent
+
+  @ViewChild('canvasRef')
+  canvasRef!: ElementRef<HTMLCanvasElement>
+  canvasEl!: HTMLCanvasElement
+
+  @ViewChild('renderRef')
+  renderRef!: ElementRef<HTMLCanvasElement>
+  renderEl!: HTMLCanvasElement
+
   @ViewChild('recorderRef')
   recorderRef!: ElementRef<HTMLVideoElement>
   recorderEl!: HTMLVideoElement
@@ -45,14 +56,38 @@ export class CanvasEditorComponent
   recordedEl!: HTMLVideoElement
 
   getMedia(constraints: MediaStreamConstraints): Promise<MediaStream> {
-    throw new Error('Method not implemented.')
+    return navigator.mediaDevices.getUserMedia(constraints)
   }
 
   constructor(readonly dialog: MatDialog) {
     super(dialog)
   }
 
-  ngAfterViewInit(): void {}
+  ngAfterViewInit(): void {
+    this.canvasEl = this.canvasRef.nativeElement
+    this.renderEl = this.renderRef.nativeElement
 
-  ngOnDestroy() {}
+    this.recorderEl = this.recorderRef.nativeElement
+    this.recordedEl = this.recordedRef.nativeElement
+
+    this.recorderEl.onplay = () => {
+      this._active.next(true)
+    }
+
+    this.recorderEl.onpause = () => {
+      this._active.next(false)
+      const active = this._active.value
+      const len = this.recordedBlobs.length
+      this._completed.next(!active || len === 0)
+    }
+  }
+  start() {
+    this.countdown.start()
+  }
+
+  download() {}
+
+  ngOnDestroy(): void {
+    super.destroy()
+  }
 }

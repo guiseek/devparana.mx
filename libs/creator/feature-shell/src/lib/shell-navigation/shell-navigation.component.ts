@@ -26,11 +26,11 @@ export class ShellNavigationComponent {
       path: '/recorder/screen',
       label: 'Gravação de tela',
     })
-    // this.navigation.addLink({
-    //   icon: 'editor',
-    //   path: '/editor',
-    //   label: 'Editor',
-    // })
+    this.navigation.addLink({
+      icon: 'editor',
+      path: '/editor',
+      label: 'Editor',
+    })
     // this.navigation.addLink({
     //   icon: 'timelapse',
     //   path: '/recorder/video',

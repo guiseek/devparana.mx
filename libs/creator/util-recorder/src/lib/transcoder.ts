@@ -1,7 +1,7 @@
+import { FFmpeg, fetchFile, LogCallback, createFFmpeg } from '@ffmpeg/ffmpeg'
 import { getCurrentDate } from './get-current-date'
 import { BlobFactory } from './factories'
 import { BehaviorSubject } from 'rxjs'
-import { FFmpeg, fetchFile, LogCallback, createFFmpeg } from '@ffmpeg/ffmpeg'
 
 export class Transcoder {
   private _log = new BehaviorSubject<string[]>([])
