@@ -68,7 +68,10 @@
               "browserTarget": "creator:build:development"
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "development",
+          "options": {
+            "proxyConfig": "apps/creator/proxy.conf.json"
+          }
         },
         "extract-i18n": {
           "executor": "@angular-devkit/build-angular:extract-i18n",
@@ -356,6 +359,55 @@
           "outputs": ["coverage/libs/creator/util-typings"],
           "options": {
             "jestConfig": "libs/creator/util-typings/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "dealer": {
+      "root": "apps/dealer",
+      "sourceRoot": "apps/dealer/src",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/dealer",
+            "main": "apps/dealer/src/main.ts",
+            "tsConfig": "apps/dealer/tsconfig.app.json"
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/dealer/src/envs/env.ts",
+                  "with": "apps/dealer/src/envs/env.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "dealer:build"
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/dealer/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/dealer"],
+          "options": {
+            "jestConfig": "apps/dealer/jest.config.js",
             "passWithNoTests": true
           }
         }
