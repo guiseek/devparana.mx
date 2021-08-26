@@ -1,6 +1,11 @@
 import { CanvasEditorComponent } from '../canvas-editor/canvas-editor.component'
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout'
 import { Component, AfterViewInit, ViewChild } from '@angular/core'
+import { Navigation } from '@devparana/creator/ui-shared'
+import { MatSidenav } from '@angular/material/sidenav'
+import { map, shareReplay } from 'rxjs/operators'
 import { FormBuilder } from '@angular/forms'
+import { Observable } from 'rxjs'
 
 @Component({
   selector: 'devpr-editor-shell',
@@ -8,6 +13,17 @@ import { FormBuilder } from '@angular/forms'
   styleUrls: ['./editor-shell.component.scss'],
 })
 export class EditorShellComponent implements AfterViewInit {
+  @ViewChild(MatSidenav)
+  drawer!: MatSidenav
+
+  isHandset$: Observable<boolean> = this.breakpointObserver
+    .observe(Breakpoints.Handset)
+    .pipe(
+      map((result) => result.matches),
+      shareReplay()
+    )
+
+
   @ViewChild(CanvasEditorComponent)
   canvasEditor!: CanvasEditorComponent
 
@@ -26,7 +42,11 @@ export class EditorShellComponent implements AfterViewInit {
     }),
   })
 
-  constructor(private _fb: FormBuilder) { }
+  constructor(
+    private breakpointObserver: BreakpointObserver,
+    readonly navigation: Navigation,
+    private _fb: FormBuilder
+  ) { }
 
   ngAfterViewInit(): void {
     const renderEl = this.canvasEditor.renderEl
@@ -54,6 +74,7 @@ export class EditorShellComponent implements AfterViewInit {
     }
     this.computeFrame()
     let self = this
+    // requestAnimationFrame(self.timerCallback)
     setTimeout(() => self.timerCallback(), 10)
   }
 
@@ -64,9 +85,9 @@ export class EditorShellComponent implements AfterViewInit {
 
     if (canvasCtx && renderCtx) {
 
-      canvasCtx.drawImage(recordedEl, 0, 0, 1920, 1080)
+      canvasCtx.drawImage(recordedEl, 0, 0, 800, 600)
 
-      let frame = canvasCtx?.getImageData(0, 0, 1920, 1080)
+      let frame = canvasCtx.getImageData(0, 0, 800, 600)
 
       const { red, green, blue } = this.form.value
 

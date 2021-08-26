@@ -7,9 +7,19 @@
 
   background-color: #121212;
 
+  .sidenav-container {
+    flex: 1;
+    width: 100%;
+  }
+  .sidenav-content {
+    display: flex;
+    flex-direction: column;
+  }
+
   form {
     display: flex;
     align-items: stretch;
+    flex-direction: column;
     justify-content: space-around;
 
     > section {

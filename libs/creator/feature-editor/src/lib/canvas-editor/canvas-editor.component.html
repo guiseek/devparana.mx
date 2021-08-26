@@ -8,11 +8,11 @@
       [ngClass]="{ hidden: (completed$ | async) }"
     ></video>
     <video class="hidden" #recordedRef playsinline controls loop></video>
-    <canvas #canvasRef width="1920" height="1080" class="hidden"></canvas>
+    <canvas #canvasRef width="800" height="600" class="hidden"></canvas>
     <canvas
       #renderRef
-      width="1920"
-      height="1080"
+      width="800"
+      height="600"
       [ngClass]="{ hidden: !(completed$ | async) }"
     ></canvas>
   </div>
