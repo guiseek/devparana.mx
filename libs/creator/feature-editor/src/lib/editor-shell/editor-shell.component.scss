@@ -16,6 +16,13 @@
     flex-direction: column;
   }
 
+  fieldset {
+    border-color: #666;
+    border-style: solid;
+    border-width: 1px;
+    margin: 16px;
+  }
+
   form {
     display: flex;
     align-items: stretch;

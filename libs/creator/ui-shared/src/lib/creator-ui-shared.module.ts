@@ -24,6 +24,7 @@ import { CountdownComponent } from './countdown/countdown.component';
 import { ControlsComponent } from './controls/controls.component';
 import { TimelineComponent } from './timeline/timeline.component';
 import { CanvasDirective } from './directives/canvas.directive';
+import { InputFileLoaderDirective } from './directives/input-file-loader.directive';
 
 @NgModule({
   imports: [
@@ -54,6 +55,7 @@ import { CanvasDirective } from './directives/canvas.directive';
     CountdownComponent,
     UserMediaComponent,
     DisplayMediaComponent,
+    InputFileLoaderDirective,
   ],
   exports: [
     HeaderComponent,
@@ -69,6 +71,7 @@ import { CanvasDirective } from './directives/canvas.directive';
     CountdownComponent,
     UserMediaComponent,
     DisplayMediaComponent,
+    InputFileLoaderDirective,
   ],
 })
 export class CreatorUiSharedModule {}
@@ -77,6 +80,7 @@ export { ControlsComponent } from './controls/controls.component'
 export { CountdownComponent } from './countdown/countdown.component'
 export { DropFileDirective } from './directives/drop-file.directive'
 export { InputFileDirective } from './directives/input-file.directive'
+export { InputFileLoaderDirective } from './directives/input-file-loader.directive';
 export { NavigationComponent } from './navigation/navigation.component'
 export { DisplayMediaComponent } from './display-media/display-media.component'
 export { UserMediaComponent } from './user-media/user-media.component';

@@ -1,12 +1,8 @@
+import { BlobFactory, RecorderFactory } from '@devparana/creator/util-recorder'
 import { DownloadComponent } from '../download/download.component'
 import { BehaviorSubject, interval, Subject } from 'rxjs'
 import { MatDialog } from '@angular/material/dialog'
 import { finalize, map, take } from 'rxjs/operators'
-import {
-  BlobFactory,
-  RecorderFactory,
-  Timeline,
-} from '@devparana/creator/util-recorder'
 
 export abstract class RecorderBase {
   abstract recorderEl: HTMLVideoElement
@@ -59,25 +55,13 @@ export abstract class RecorderBase {
     return !state || state === 'inactive'
   }
 
-
   onDeviceChange({ audioinput, videoinput }: Record<MediaDeviceKind, string>) {
     console.log(audioinput, videoinput)
     if (audioinput) {
-      this.getAudioByDevice(audioinput).then(
-        (stream) => {
-          console.log(stream);
-          this.onStream(stream)
-          // this.audioStream = stream
-        }
-        )
-      }
-      if (videoinput) {
-        this.getAudioByDevice(videoinput).then(
-          (stream) => {
-          this.onStream(stream)
-          // this.videoStream = stream
-        }
-      )
+      this.getAudioByDevice(audioinput).then((stream) => this.onStream(stream))
+    }
+    if (videoinput) {
+      this.getAudioByDevice(videoinput).then((stream) => this.onStream(stream))
     }
   }
 

@@ -37,6 +37,10 @@
       justify-content: center;
       position: relative;
       max-width: 100%;
+      video {
+        visibility: hidden;
+        margin-left: -800px;
+      }
       video,
       canvas {
         width:100%;

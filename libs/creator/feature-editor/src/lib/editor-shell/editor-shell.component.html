@@ -25,46 +25,50 @@
   >
     <mat-toolbar> Configurações </mat-toolbar>
 
-    <form [formGroup]="form">
-      <section formGroupName="red">
-        <h3 class="mat-heading">Vermelho</h3>
-        <devpr-range-control
-          label="Mínimo"
-          formControlName="min"
-        ></devpr-range-control>
-        <devpr-range-control
-          label="Máximo"
-          formControlName="max"
-        ></devpr-range-control>
-      </section>
-      <section formGroupName="green">
-        <h3 class="mat-heading">Verde</h3>
-        <devpr-range-control
-          label="Mínimo"
-          formControlName="min"
-        ></devpr-range-control>
-        <devpr-range-control
-          label="Máximo"
-          formControlName="max"
-        ></devpr-range-control>
-      </section>
-      <section formGroupName="blue">
-        <h3 class="mat-heading">Azul</h3>
-        <devpr-range-control
-          label="Mínimo"
-          formControlName="min"
-        ></devpr-range-control>
-        <devpr-range-control
-          label="Máximo"
-          formControlName="max"
-        ></devpr-range-control>
-      </section>
-    </form>
+    <fieldset [disabled]="!(canvasEditor?.completed$ | async)">
+      <legend>Ajuste de cores Chroma key</legend>
+      <form [formGroup]="form">
+        <section formGroupName="red">
+          <h3 class="mat-heading">Vermelho</h3>
+          <devpr-range-control
+            label="Mínimo"
+            formControlName="min"
+          ></devpr-range-control>
+          <devpr-range-control
+            label="Máximo"
+            formControlName="max"
+          ></devpr-range-control>
+        </section>
+        <section formGroupName="green">
+          <h3 class="mat-heading">Verde</h3>
+          <devpr-range-control
+            label="Mínimo"
+            formControlName="min"
+          ></devpr-range-control>
+          <devpr-range-control
+            label="Máximo"
+            formControlName="max"
+          ></devpr-range-control>
+        </section>
+        <section formGroupName="blue">
+          <h3 class="mat-heading">Azul</h3>
+          <devpr-range-control
+            label="Mínimo"
+            formControlName="min"
+          ></devpr-range-control>
+          <devpr-range-control
+            label="Máximo"
+            formControlName="max"
+          ></devpr-range-control>
+        </section>
+      </form>
+    </fieldset>
   </mat-sidenav>
 </mat-sidenav-container>
 
 <mat-toolbar>
   <h1>DevParaná MX</h1>
+  <input file (fileChange)="onFileChange($event)" />
   <span class="spacer"></span>
   <button
     type="button"
