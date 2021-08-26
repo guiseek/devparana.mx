@@ -1,7 +1,9 @@
 @include mat.core();
 
-$my-primary: mat.define-palette(devpr.$green-palette);
-$my-accent: mat.define-palette(devpr.$light-green-palette, A200, A100, A400);
+// $my-primary: mat.define-palette(devpr.$green-palette);
+// $my-accent: mat.define-palette(devpr.$light-green-palette, A200, A100, A400);
+$my-primary: mat.define-palette(mat.$green-palette);
+$my-accent: mat.define-palette(mat.$yellow-palette);
 
 $my-theme: mat.define-dark-theme(
   (

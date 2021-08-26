@@ -1,4 +1,4 @@
-<section class="container">
+<section>
   <div class="container">
     <video
       #recorderRef
@@ -7,16 +7,34 @@
       muted
       [ngClass]="{ hidden: (completed$ | async) }"
     ></video>
-    <video
-      #recordedRef
-      playsinline
-      controls
+    <video class="hidden" #recordedRef playsinline controls loop></video>
+    <canvas #canvasRef width="1920" height="1080" class="hidden"></canvas>
+    <canvas
+      #renderRef
+      width="1920"
+      height="1080"
       [ngClass]="{ hidden: !(completed$ | async) }"
-    ></video>
+    ></canvas>
   </div>
 </section>
 
-dev
-<!-- <section class="container">
-  <canvas></canvas>
-</section> -->
+<devpr-countdown (record)="record()"></devpr-countdown>
+
+<footer class="toolbar">
+  <div>
+    <devpr-user-media
+      [active]="stream?.active"
+      (onUserMedia)="onStream($event)"
+    ></devpr-user-media>
+  </div>
+  <div>
+    <devpr-controls
+      [stream]="stream"
+      [recorder]="recorder"
+      (start)="start()"
+      (toggle)="toggleRecording()"
+      (stop)="stop()"
+      (retry)="retry()"
+    ></devpr-controls>
+  </div>
+</footer>

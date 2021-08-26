@@ -1,0 +1,12 @@
+<label *ngIf="label">{{ label }}</label>
+<mat-slider
+  thumbLabel
+  step="5"
+  min="0"
+  max="255"
+  [formControl]="$any(ngControl).control"
+  aria-label="units"
+></mat-slider>
+<output>
+  {{ ngControl.control?.value }}
+</output>
