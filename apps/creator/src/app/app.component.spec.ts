@@ -29,10 +29,10 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy()
   })
 
-  it(`should have as title 'DevParaná Creator'`, () => {
+  it(`should have as title 'Creator'`, () => {
     const fixture = TestBed.createComponent(AppComponent)
     const app = fixture.componentInstance
-    expect(app.title).toEqual('DevParaná Creator')
+    expect(app.title).toEqual('Creator')
   })
 
   it('should render title', () => {
@@ -40,7 +40,7 @@ describe('AppComponent', () => {
     fixture.detectChanges()
     const compiled = fixture.nativeElement as HTMLElement
     expect(compiled.querySelector('.brand-name')?.textContent).toContain(
-      'DevParaná Creator'
+      'Creator'
     )
   })
 })
