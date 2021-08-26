@@ -23,7 +23,6 @@ export class EditorShellComponent implements AfterViewInit {
       shareReplay()
     )
 
-
   @ViewChild(CanvasEditorComponent)
   canvasEditor!: CanvasEditorComponent
 
@@ -46,46 +45,81 @@ export class EditorShellComponent implements AfterViewInit {
     private breakpointObserver: BreakpointObserver,
     readonly navigation: Navigation,
     private _fb: FormBuilder
-  ) { }
+  ) {}
+
+  onFileChange(file: File) {
+    const reader = file.stream().getReader()
+
+    const readable = new ReadableStream<File>({
+      async start(controller) {
+        if (reader) {
+          while (true) {
+            const { done, value } = await reader.read()
+
+            if (done) break
+
+            if (value) controller.enqueue(value)
+          }
+
+          reader.releaseLock()
+        }
+        controller.close()
+      },
+    })
+
+    readable.pipeTo(
+      new WritableStream<File>({
+        write(chunk) {
+          console.log('Chunk ', chunk)
+        },
+      })
+    )
+  }
 
   ngAfterViewInit(): void {
     const renderEl = this.canvasEditor.renderEl
     renderEl.onclick = ({ offsetX, offsetY }) => {
       const renderCtx = renderEl.getContext('2d')
       if (renderCtx) {
-        const [r, g, b] = renderCtx.getImageData(offsetX, offsetY, 1, 1).data
+        const { data } = renderCtx.getImageData(offsetX, offsetY, 1, 1)
 
-        const red = { min: r - 50, max: r + 50 }
-        const green = { min: g - 50, max: g + 50 }
-        const blue = { min: b - 50, max: b + 50 }
+        const red = { min: data[0] - 50, max: data[0] + 50 }
+        const green = { min: data[1] - 50, max: data[1] + 50 }
+        const blue = { min: data[2] - 50, max: data[2] + 50 }
 
-        this.form.patchValue({ red, green, blue })
+        const rgb = { red, green, blue }
+        this.form.patchValue(rgb)
+        localStorage.setItem('rgb', JSON.stringify(rgb))
       }
     }
-    this.canvasEditor.recordedEl.onplay = () => {
+    this.canvasEditor.recorderEl.onplay = () => {
+      console.log('play')
+      const rgb = localStorage.getItem('rgb')
+      if (rgb) {
+        const value = JSON.parse(rgb)
+        this.form.patchValue(value)
+      }
+
       this.timerCallback()
     }
   }
 
   timerCallback() {
-    const video = this.canvasEditor.recordedEl
+    const video = this.canvasEditor.recorderEl
     if (video.paused || video.ended) {
       return
     }
     this.computeFrame()
-    let self = this
-    // requestAnimationFrame(self.timerCallback)
-    setTimeout(() => self.timerCallback(), 10)
+    setTimeout(() => this.timerCallback(), 10)
   }
 
   computeFrame() {
-    const { recordedEl, canvasEl, renderEl } = this.canvasEditor
+    const { recorderEl, canvasEl, renderEl } = this.canvasEditor
     const canvasCtx = canvasEl.getContext('2d')
     const renderCtx = renderEl.getContext('2d')
 
     if (canvasCtx && renderCtx) {
-
-      canvasCtx.drawImage(recordedEl, 0, 0, 800, 600)
+      canvasCtx.drawImage(recorderEl, 0, 0, 800, 600)
 
       let frame = canvasCtx.getImageData(0, 0, 800, 600)
 
